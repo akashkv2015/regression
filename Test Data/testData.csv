@@ -1,0 +1,16 @@
+Columns,Value1,Value2
+browser,chrome,
+Timeout,30,
+Retry,5,
+url,https://uat.store.hp.com/us/en,
+STOProduct,C2P26AN#140,XYX
+CTOProduct,8WW21AV_1,ZZZ
+PODescval,Automation Demo,
+cardType,VISA,
+cardNumber,4112 3441 1234 4113,
+cardExpiry,Dec-20,
+cardCVV,123,
+fName, Susheel,
+lName, Yadav,
+phone, 1209999999999999,
+email, susheel.yadav@infogain.com,

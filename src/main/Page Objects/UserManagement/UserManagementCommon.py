@@ -1,0 +1,31 @@
+###for sign in home page
+user_data = "gerpjhon123@gmail.com"
+user_Password = "Password@123"
+
+####sign oder page
+click_sign_in = "//a[contains(text(),'Sign in/Register')]"
+signin_user = "//ul[@class='lastBox topmenuchild myAccountDd']//a[text()='Sign in']"
+enter_user = "//input[@id='username'] "
+Clk_nex = "//button[@id='next_button']"
+clk_next = "//button[@id='']"
+enter_pass = "//input[@id='password']"
+Welcome_txt_expected = '''Welcome, GERP EUA'''
+Welcome_txt_Actual = "//li[@class='lastIteminList hasdropdown']"
+clk_My_orders = "//a[contains(text(), 'My orders')]"
+your_orderpage = "//div[@class='topsection']"
+search_bar = "//div[@class='Rectangle-426 ']"
+total_order = "//div[@class='orderFound']"
+placeholder_text = "Search hp.com"
+click_search = "//div[@class ='Rectangle-426 ']//a[@class='wpr-search-icon-logo search_trigger link_metrics removeFocus']"
+Pavilion_text = "pavilion"
+order_result = '''363 results'''
+Input_text = "Pavilion"
+search_text = "//input[@id='search_focus_desktop']"
+anytext = "Pavilion"
+Click_search_icon = "//div[@class='Rectangle-426 ']/a"
+get_result = "results"
+pagination_count = "//div[@id='searchResultView']/div"
+load_more = "//div[@class='loadMorePages']/label"
+Clear_search_link = "(//span[@class='clear-search']//a)[2]"
+zero_text = "H353008361"
+Zerovalue_result = "0 results"
