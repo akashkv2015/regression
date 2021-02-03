@@ -1,7 +1,7 @@
 # Page elements
 
 ###Private_Exclusive_Price Text
-Pvt_Exclusive_Price = "(//span[@id='price_tier'])[1]"
+Pvt_Exclusive_Price = "//span[@id='price_tier']"
 ###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
 Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
 ###User SignIn Option

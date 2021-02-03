@@ -1,11 +1,11 @@
 # Page elements for MLP Page
-
 ### For the BreadCrumb
 bread_crumb = "//div[@id='brdcrmb']"
 grid_view = "//*[@id='gridView' and @class='page_view grid sprite gridlist active']"
 loyalty_rewards = "(//span)[33]"
 loyalty_text = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[3]/div[2]/p[1]"
-viewdetail_locator = "(//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=features'])[3]"
+#viewdetail_locator = "(//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=features'])[3]"
+viewdetail_locator = "(//a[@class='fullwidthbtn'])[1]"
 mdplocator = "//html"
 grid_modelname = "//a[contains(text(),'HP ProBook 640')]"
 grid_modelimage = "//img[@class=' lazyloaded']"

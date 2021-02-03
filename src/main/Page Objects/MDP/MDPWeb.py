@@ -25,7 +25,7 @@ LoyaltyTxt = """3% back in HP Rewards
 HP Rewards is a loyalty program where users earn HP Rewards points by buying eligible HP Products.
 Learn more"""
 ###Private_Exclusive_Price Text
-Pvt_Exclusive_Price = "(//span[@id='price_tier'])[1]"
+Pvt_Exclusive_Price = "//span[@id='price_tier']"
 ###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
 Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
 ###User SignIn Option
@@ -88,6 +88,9 @@ ProductHPProBook= "//div[@class='productInfo2']//h3/a[contains(text(),'HP ProBoo
 ###Single Product Section
 UnitProductSection = "//div[@class='productCard']"
 
+##Compare Links
+FirstCompareLink = "(//div[@class='inv_compare ']//span[@title='Click to compare'])[1]"
+SecondCompareLink = "(//div[@class='inv_compare ']//span[@title='Click to compare'])[2]"
 ###MDP Product Compare Window Section
 MDPCompareSection = "//div[@class='productCompare']"
 ### Upward arrow toggle button of Compare Window Section

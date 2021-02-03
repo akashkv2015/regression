@@ -251,24 +251,23 @@ Verify Compare_Products_in_MDP
 #    FOR    ${i}    IN RANGE    1   2
 #        Log      ${i}
 #        Click On Element      xpath=(//div[@class='inv_compare ']//span[@title='Click to compare'])[${i}]
-#
 #    END
-    Click on Element      xpath=(//div[@class='inv_compare ']//span[@title='Click to compare'])[1]
-    #Click Element      xpath=(//div[@class='inv_compare ']//span[@title='Click to compare'])[2]
+    Click Element  ${FirstCompareLink}
+    Click Element  ${SecondCompareLink}
     Wait Until Element Is Visible       ${MDPCompareSection}    12s
-
     Log to Console     "Compare window should be displayed at the bottom with the products selected"
 
 
 Verify UpwardArrow_MDPCompareWindow
     [Arguments]     ${ToggleButtonCompareWindow}
     [Documentation]     Verify Elements in Compare Window
-    Click Element            ${ToggleButtonCompareWindow}
-    Wait Until Element Is Visible       ${RemoveLinkCompareWindow}
-    Verify Element Exists       ${MaxProductsText}
-    Verify Element Exists       ${ProductSpec}
-    Verify Element Exists       ${ClearAllCompareWindow}
-    Verify Element Exists       ${RemoveLinkCompareWindow}
+    Wait Until Element Is Visible   ${ToggleButtonCompareWindow}
+    Click Element    ${ToggleButtonCompareWindow}
+    Wait Until Element Is Visible    ${RemoveLinkCompareWindow}
+    Verify Element Exists   ${MaxProductsText}
+    Verify Element Exists   ${ProductSpec}
+    Verify Element Exists   ${ClearAllCompareWindow}
+    Verify Element Exists   ${RemoveLinkCompareWindow}
     Log to Console     "Compare window is displayed with Compare products (max, 4), 'Clear all', Products with specifications, Remove link"
 
 
@@ -524,7 +523,7 @@ Verify LoadMore Button
 Verify Compare Tab
     [Arguments]     ${CompareTab}
     [Documentation]    Verify Elements in Compare Tab
-    Sleep   1
+    Sleep   2
     Click On Element    ${CompareTab}
     Page Should contain   ${CompareTabMsg}
     Page Should contain Element     ${ClearAllLink}
