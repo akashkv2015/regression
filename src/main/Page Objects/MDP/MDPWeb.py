@@ -49,6 +49,7 @@ SeeAllOffers = "(//label[contains(text(),'See all offers')])[position()=1]"
 SeeAllOffersToolTip = "//span[@class='tooltipContent']"
 ### Tech Spec Link
 TechSpec = "(//label[contains(text(),'Tech spec')])[position()=1]"
+#TechSpec ='//div[@class="productSpecsLink"]/label[1]'
 ### Tech Spec Popup Close
 TechSpecClose = "(//span[@class='closeSpecsBtn'])[position()=1]"
 ###Earn 3% in HP Rewards with purchaseâ€™ Link
@@ -94,7 +95,8 @@ SecondCompareLink = "(//div[@class='inv_compare ']//span[@title='Click to compar
 ###MDP Product Compare Window Section
 MDPCompareSection = "//div[@class='productCompare']"
 ### Upward arrow toggle button of Compare Window Section
-ToggleButtonCompareWindow = "(//span[@id='toggleProductCompare_btn'])"
+#ToggleButtonCompareWindow = "(//span[@id='toggleProductCompare_btn'])"
+ToggleButtonCompareWindow='//*[@id="toggleProductCompare_btn"]'
 ### Maximum Products that can be compared Text
 MaxProductsText = "//div//h3[contains(text(),'Compare Products (max. 4)')]"
 ###Product Specification

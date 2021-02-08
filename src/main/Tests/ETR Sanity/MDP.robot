@@ -91,11 +91,14 @@ TC_Validate_MDP_features
     Verify Registered & TM" symbols  ${RegisteredSymbol}
 
 #7. Click on 'Tech spec'
-    Wait Until Element Is Visible   ${TechSpec}   2s
+    #Wait Until Element Is Visible   ${TechSpec}
+    mouse over    ${TechSpec}
+    #Click Element Using JavaScript    ${TechSpec}
     Click Element  ${TechSpec}
     Log to Console  "Pop up window is displayed with Product specification details"
 
 #8. Click on X icon on the Tech Spec pop up
+
     Click Element  ${TechSpecClose}
     Log to Console  "Pop up is closed"
 

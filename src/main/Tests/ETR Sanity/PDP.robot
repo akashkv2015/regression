@@ -51,6 +51,84 @@ SetupSuite
 
 *** Test Cases ***
 #####################################       Test Cases for PDP Page        ####################################
+Verify PDP Page Features
+    [Tags]  WEB     MOBILE
+    #Step 1: Launch the application in appropriate device/desktop
+    #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
+    Launch ETR Application  ${url}
+    Click On Element    ${iAcceptBtn}
+    run keyword if      '${tech}'=='WEB'    run keywords
+    ...     Select Application Frame     ${frame_SSM}
+    ...     AND     click on element    ${closeForm_SSM}
+    ...     AND     Unselect Frame
+    #Step 2: Type keyword "Gift cards" in search bar & click on the search icon
+    Verify SRP with Gift Card   ${Input_giftcard}   ${Giftcard_input}   ${Clickicon_gift}
+    #3. Click on "Check your balance" link on right top of the SRP
+    Verify Check Your Balance Link   ${balance_SRP}  ${checkbal_locator}
+    Verify Element Exists     ${gift_card_no}
+    Verify Element Exists     ${pin_text}
+    Verify Element Exists     ${balance}
+    Verify Element Exists      ${avail_bal}
+    #5. Close the 'Gift card balance' popup by clicking X
+    Verify Gift Card Balance Pop Up is Closed   ${close_popup}  ${balance_SRP}
+    #6. Click on "CUSTOMIZE & BUY" for any 'Physical gift card'
+    Verify Amount Dropdown under Customize and Buy for physical gift card    ${Click_Buy}  ${Amount_dropdown_customize}
+    #From & To text fields
+    Verify From and To Text Field   ${From_locator}  ${To_locator}
+    #Add a personalized message' link
+    Verify Add a personalized message link  ${personalized_msg_link}
+    #'Add to Cart' button
+    Verify Add to Cart button   ${add_to_cart}
+    #Price with $
+    Verify Price under Physical gift card     ${price_locator}
+    #7. Select an amount in the drop down
+    Verify Amount is selected in the dropdown   ${select_amount}
+    #8. Enter 'Your name' in From field
+    Verify Your Name Field   ${name_locator}
+    # 9. Enter 'Recipient's name' in To field
+    Verify Recipient's name Field     ${Recipient_name}
+    #10. Click on 'Add a personalized message' link and enter message
+    Verify Add a personalized message link in PDP   ${Adding_personal_msg}   ${optional_message}
+    #11. Click on Features tab
+    Verify Features of Gift card    ${Featured_giftcard}   ${verified_feature}
+    #12. Click on 'Special Offers' tab
+    Verify Special Offers of the Gift Card   ${Special_offer}  ${About_specialoffer}
+    #13. Click on "Add to cart"
+    Verify Add To Cart by adding Gift Card   ${add_gift_carditem}   ${added_cartlocator}
+    #14. Browse for an 'Virtual gift card'
+    Go TO  ${pdp_url}
+    #Virtual gift card PDP should be displayed with below details
+    #Amount dropdown
+    Verify Amount Dropdown for Virtual gift card   ${virtual_giftcard_dropdown}
+    #From & To text fields
+    Verify From and To Text Field for Virtual gift card  ${From_virtual}  ${To_virtual}
+    #Recipient email & Confirm email fields
+    Verify Recipient email & Confirm email fields  ${Recipient_email}  ${Confirm_email}
+    #Add a personalized message' link
+    Verify Add a personalized message link for Virtual gift card  ${virtual_msg}
+    #'Add to Cart' button
+    Verify Add to Cart button for Virtual gift card  ${addcart_virtual}
+    #Price with $
+    Verify Price under Virtual gift card  ${virtual_giftprice}
+    #15. Select an amount in the drop down
+    Verify dropdown Amount is selected in PDP  ${Vitual_dropdown}
+    #16. Enter 'Your name' in From
+    Verify Your Name for Virtual Gift Card  ${From_virtual_name}
+    #17. Enter 'Recipient's name' in To
+    Verify Recipient Name for Virtual Gift Card  ${To_virtual_loc}
+    #18. Enter 'Recipient email'
+    Verify Recipient Email Field for virtual gift card  ${set_reciemail}
+    #19. Enter 'Confirm email
+    Verify Confirm email Field   ${confirm_name}
+    #20. Click on 'Add a personalized message' link and enter message
+    Verify Add a personalized message For Vitual gift  ${virtual_msg}   ${virtual_opt_msg}
+    #21. Click on Features tab
+    Verify Features of Virtual Gift card  ${Virtual_feature_loc}    ${feature_virtual_msg}
+    #22. Click on 'Special Offers' tab
+    Verify Special Offers of Virtual Gift Card   ${virtual_offer_set}  ${get_offer}
+    #Click on "Add to cart"
+    Verify Add To Cart by adding Virtual Gift Card  ${Click_to_add}  ${item_added}
+
 
 #################### Verify STO PDP ####################################################################################
 Verify STO PDP

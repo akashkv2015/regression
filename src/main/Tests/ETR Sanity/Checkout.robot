@@ -57,6 +57,7 @@ Guest user checkout with PayPal
     Search SKU and add to cart and verify      ${bto_product_item}     ${locator_searchbox_pdp}
     #4. Click on ""View Cart and Checkout"" in Mini cart
     Click on View all items in mini cart
+    sleep   2s
     #5. Click on ""PayPal Checkout"" button
     Click On Element        ${locator_btn_paypalcheckout}
     sleep       5s

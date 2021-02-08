@@ -73,9 +73,10 @@ Verify CLP Page Features
 
     #Step 8: Validate the Products name, image, Starting at Price and Shop now link of life style models
     Verify Product Details In Landing Page  ${product_section_landing}
-
+    sleep   2
     #Step 9: Verify the Innovation banner
-    Verify Banner   ${img_innovation_banner}  "Innovation"
+    Verify CLP Banner   ${img_innovation_banner}
+   # Verify Banner   ${img_innovation_banner}  "Innovation"
     Verify Element Exists   ${shop_link_innovation}
 
     #Step 10:Verify the products under ""Shop"" section
@@ -109,6 +110,7 @@ Verify CLP Link
     #   5. Repeat 3-4 steps for all Hero Banners
     Validate Shop link in banner      ${hero_banner_2}
     Go Back
+    sleep   1
     Validate Shop link in banner      ${hero_banner_3}
     Go Back
 
@@ -163,6 +165,7 @@ Verify CLP Link
     Go Back
     Validate the products under Shop section     (${product_section_shop})[7]
     Go Back
+    sleep   2
 
     #    19. Click on the first 'Shop' link under bottom eSpot
     Validate Shop link in banner    (${espot_section})[1]//a[text()="SHOP"]
