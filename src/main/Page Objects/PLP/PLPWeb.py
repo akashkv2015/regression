@@ -1,9 +1,11 @@
 # Page elements
 
-###Private_Exclusive_Price Text
-Pvt_Exclusive_Price = "//span[@id='price_tier']"
-###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
-Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+# ###Private_Exclusive_Price Text
+# Pvt_Exclusive_Price = "//span[@id='price_tier']"
+# ###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
+# Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+Pvt_Exclusive_Price = "(//div[@class='topReview']//div[@class='promotion-text'])[2]"
+Private_Store_Expected = "Private Store Exclusive SKU"
 ###User SignIn Option
 SignIn = "//a[contains(text(),'Sign in/Register')]"
 SignIn_DropDown = "(//li//a[text()='Sign in'])[1]"
@@ -39,7 +41,8 @@ Energy_Star="//div[@class='productEnergy']"
 ###Key selling points (KSP)
 ksp = "//ul[@class='productFeatLst']"
 ###Price starting with '$'
-PriceStart = "//span[starts-with(text(),'$')]"
+# PriceStart = "//span[starts-with(text(),'$')]"
+PriceStart = "//span//sup[starts-with(text(),'$')]"
 ####Compare link (If available
 CompareLink = "//div[@class='inv_compare ']"
 ###Only X Left in Stock    (If inventory is less than threshold) / Shipping status label
@@ -59,8 +62,8 @@ CompareTab = "//li[@id='compareTab']"
 #STOCompareFirstLink = "//a[contains(@aria-label,'Add to cart')]/preceding::div[contains(@class,'inv_compare')]//span[@class='pc_3074457345619594318 add_compare_btn ']"
 #STOCompareSecondlink = "//a[contains(@aria-label,'Add to cart')]/preceding::div[contains(@class,'inv_compare')]//span[@class='pc_3074457345619720319 add_compare_btn ']"
 # ###STO product 'Compare' Link
-STOCompareFirstLink = "(//a[text()='Add to cart'])[1]/../div[@class='inv_compare ']/span[text()='Compare']"
-STOCompareSecondLink = "(//a[text()='Add to cart'])[2]/../div[@class='inv_compare ']/span[text()='Compare']"
+STOCompareFirstLink = "(//a[text()='Add to cart'])[2]/../div[@class='inv_compare ']/span[text()='Compare']"
+STOCompareSecondLink = "(//a[text()='Add to cart'])[5]/../div[@class='inv_compare ']/span[text()='Compare']"
 ###ClearAll Link
 ClearAllLink = "//span[contains(text(),'Clear all')]"
 ###STO product 'Compare' Link
@@ -94,6 +97,7 @@ AddToCart_STO = "(//a[contains(text(),'Add to cart')])[1]"
 #ProductName_STO = "(//a[@class='productHdr'])[1]"
 #ProductName_STO = "(//a[contains(@aria-label,'Add to cart')]/../../preceding::a[@class='productHdr'])[1]"
 ProductName_STO = "(//div[@class='productCard']//a[text()='Add to cart'])[1]/preceding::h3[1]"
+
 
 ##Just Added to Cart Popup when clicked on AddtoCart button
 JustAddedtoCartPopup = "//div[@class='widget_content xo_minicart']"

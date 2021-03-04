@@ -39,3 +39,36 @@ smb_pvt_password = "Password@123"
 tpp_product_item = 'U45580'
 bto_product_item = '21N73UT#ABA'
 eCarepack_product_item = 'UA5S4E'
+
+###UAT pvt User Login
+uat_pvt_username = "testeppautomation9@yopmail.com"
+uat_pvt_password = "passw0rd@123"
+###UAT SMB_pvt User Login
+uat_smbpvt_username = "enduser1_v9@yopmail.com"
+uat_smbpvt_password = "Password@123"
+###First Name Input
+FirstNameInput = "ABCS"
+LastNameInput = "ABCS"
+EmailInput = "abcs24@hp.com"
+PasswordInput = "abc@1234"
+ConfirmPasswordInput = "abc@1234"
+CompanyNameText = "HP"
+NewEmailIDInput = "abcs24new@hp.com"
+Welcome_txt_NewUser = '''Welcome, ABCS'''
+
+FirstNameInputn = "Neetu1234"
+LastNameInputn = "Pal1234"
+
+
+
+
+
+
+
+
+
+
+
+
+
+

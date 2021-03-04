@@ -5,13 +5,20 @@ feedbackForm_CloseBtn = "//div[@id='liveForm']//button[@aria-label='Exit']"
 
 signUpBtnLocator="//button[text()='SIGN UP']"
 
-interestedSection    =   '//div[@class="pdp-acc-list"]//li'
+#interestedSection    =   '//div[@class="pdp-acc-list"]//li'
+#change
+interestedSection = '//*[@id="relatedProductList"]//li'
 
-cto_add_customize_btn ="//button[text()='Customize & buy']"
+#cto_add_customize_btn ="//button[text()='Customize & buy']"
+#change
+cto_add_customize_btn = "//a[text()='Customize & buy']"
 
 configurator_add_to_cart_btn = '//a[@class="btn-addtocart"]'
 
-feature_tab_content = '//div[@class="pdp-features fv5  pdp-width-container"]'
+#feature_tab_content = '//div[@class="pdp-features fv5  pdp-width-container"]'
+#change
+feature_tab_content = '//*[@id="features"]/div[1]/p'
+
 
 locator_addtocart="//a[@class='btn-addtocart']"
 

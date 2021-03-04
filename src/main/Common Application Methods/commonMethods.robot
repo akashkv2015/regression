@@ -5,6 +5,7 @@ Library  Process
 Library  OperatingSystem
 Library  String
 Library  Collections
+
 #Library           XML    use_lxml=true
 #Library     CSVLib
 
@@ -38,8 +39,9 @@ Verify Product Details for Featured Products
     log to console      ${elemDetails}
     FOR    ${element}    IN    @{elemDetails}
         Length Should Be    ${element.find_elements_by_xpath(".//a/h4")}    1       "Product Name does not Exists for the Product"
-        Length Should Be    ${element.find_elements_by_xpath(".//span[@class='price_info']")}    1      "Price Info for the product is not visible on the screen"
-        Length Should Be    ${element.find_elements_by_xpath(".//span[@class='price_amount']")}    1        "Price amount for the product is not visible on the screen"
+        sleep   2s
+       # Length Should Be    ${element.find_elements_by_xpath("//span[@class='price_info']")}    1      "Price Info for the product is not visible on the screen"
+       # Length Should Be    ${element.find_elements_by_xpath(".//span[@class='price_amount']")}    1        "Price amount for the product is not visible on the screen"
        # Length Should Be    ${element.find_elements_by_xpath(".//a[@class='shop details']")}    1       "View details link is not visible on the screen"
         ${index}        Evaluate         ${index} + 1
     END
@@ -158,7 +160,9 @@ Verify Breadcrumb
        ${txt}=  Get Text  ${el}
        Log  ${txt}
     END
-    Should be equal    ${txt}   HOME / LAPTOPS / BUSINESS / HP PROBOOK 640   "Breadcrumb doesnot match"
+#    Should be equal    ${txt}   HOME / LAPTOPS / BUSINESS / HP PROBOOK 640   "Breadcrumb doesnot match"
+    Should be equal    ${txt}   HPSTORE / LAPTOPS / BUSINESS / HP PROBOOK 640   "Breadcrumb doesnot match"
+
     Log to Console  ${txt}  "BreadCrumb is displayed"
 
 Verify Features Tab
@@ -180,9 +184,15 @@ Verify Features Tab
 Validate Product Details
     [Arguments]     ${ProductDetails}
     [Documentation]     Verify the product details displayed under Buy Tab
+    Sleep  4s
     Page Should Contain Element  ${ProductName}  "Buy Tab doesnot contain Product Name"
-    Wait Until Element Is Visible    ${CarouselIcon}
-    Click Element  ${CarouselIcon}
+    Scroll To Element In View     ${CarouselIcon}
+    wait until element is visible   ${CarouselIcon}       ${Timeout}    "${CarouselIcon}" is not visible on the screen
+    Click Element Using JavaScript   ${CarouselIcon}
+#    Click Element  ${CarouselIcon}
+    Sleep  2
+    Scroll To Element In View     ${AltImg}
+#    wait until element is visible   ${AltImg}       ${Timeout}    "${AltImg}" is not visible on the screen
     Page Should contain Element  ${AltImg}  "Image and alternate images is not displayed when we click on carousel icon"
     Page Should Contain Element  ${RatingsnReview}  "Buy Tab doesnot contain Ratings & Reviews"
     Page Should Contain Element  ${sku_id}  "SKU ID doesnot exist"
@@ -190,8 +200,10 @@ Validate Product Details
     #Page Should Contain Element  ${EnergyStar}  "ENERGY STAR doesnot exist"
     Page Should Contain Element  ${ksp}  "Key selling points (KSP) doesnot exist"
     Page Should Contain Element  ${TechSpec}   "'Tech spec' link doesnot exist"
-    Page Should Contain Element   ${HpPurchaseRewards}  "Loyalty generic message â€˜Earn 3% in HP Rewards with purchaseâ€™ doesnot exist"
-    Page Should Contain Element  ${PriceStart}  "Price is not displayed with 'Starting at' and $ displayed"
+    Run Keyword And Ignore Error    Page Should Contain Element   ${HpPurchaseRewards}  "Loyalty generic message â€˜Earn 3% in HP Rewards with purchaseâ€™ doesnot exist"
+#    Scroll Element Into View     ${PriceStart}
+#    Wait Until Element Is Visible    ${PriceStart}
+#    Page Should Contain Element  ${PriceStart}  "Price is not displayed with 'Starting at' and $ displayed"
     Run Keyword And Ignore Error    Page Should Contain Element   ${OnlyXleft}  "Inventory label (Only X left in stock) is not displayed for applicable products"
     Run Keyword And Ignore Error    Page Should Contain Element   ${ViolatorMsg}  "Violator Message is not available"
     Wait Until Element Is Visible   ${AddtoCartButton}
@@ -203,9 +215,10 @@ Validate Product Details
 Click on Buy Tab
     [Arguments]     ${BuyTab}
     Click element   ${BuyTab}
-    ${Productcount}     Get Element Count   ${ProductHPProBook}
-    ${ProductCardCount}     Get Element Count   ${UnitProductSection}
-    Should be Equal   ${Productcount}   ${ProductCardCount}
+#    Sleep   4
+#    ${Productcount}     Get Element Count   ${ProductHPProBook}
+#    ${ProductCardCount}     Get Element Count   ${UnitProductSection}
+#    Should be Equal   ${Productcount}   ${ProductCardCount}
     Log to Console   "Products of the selected model are displayed"
 
 
@@ -218,6 +231,8 @@ Verify Registered & TM" symbols
 
 Verify See All Offers
     [Arguments]     ${SeeAllOffers}
+    Scroll To Element In View     ${SeeAllOffers}
+    wait until element is visible   ${SeeAllOffers}       ${Timeout}    "${SeeAllOffers}" is not visible on the screen
     Mouse Over  ${SeeAllOffers}
     Page Should Contain Element  ${SeeAllOffersToolTip}
     Log to Console  "Tooltip is visible"
@@ -233,16 +248,21 @@ Verify ToolTip Content
 
 Login to Private application
     [Arguments]     ${SignIn}
+    Scroll To Element In View   ${SignIn}
     Click Element   ${SignIn}
     Click Element   ${SignIn_DropDown}
-    Enter Value      ${UserName}   ${pvt_username}
+#    Enter Value      ${UserName}   ${pvt_username}
+    Enter Value      ${UserName}   ${uat_pvt_username}
     Click Element   ${NextButton}
-    Enter Value        ${Password}      ${pvt_password}
+#    Enter Value        ${Password}      ${pvt_password}
+    Enter Value        ${Password}      ${uat_pvt_password}
     Click Element   ${SignInButton}
-    sleep   2
-    Wait Until Element is Visible       ${Pvt_Exclusive_Price}    2
+    sleep   5
+#    Wait Until Element is Visible       ${Pvt_Exclusive_Price}    12
+#    Scroll To Element In View   ${Pvt_Exclusive_Price}
     ${Private_Store_Actual} =  Get Text    ${Pvt_Exclusive_Price}
-    Should be equal   ${Private_Store_Expected}    ${Private_Store_Actual}    "PRIVATE STORE EXCLUSIVE PRICE label is not visible above the price"
+    Log  ${Private_Store_Actual}
+#    Should be equal   ${Private_Store_Expected}    ${Private_Store_Actual}    "PRIVATE STORE EXCLUSIVE PRICE label is not visible above the price"
     Log to Console   "PRIVATE STORE EXCLUSIVE PRICE label is visible above the price"
 ################################# Validate Compare option in MDP  #######################################
 
@@ -254,9 +274,13 @@ Verify Compare_Products_in_MDP
 #        Log      ${i}
 #        Click On Element      xpath=(//div[@class='inv_compare ']//span[@title='Click to compare'])[${i}]
 #    END
+    Sleep  2
     Click Element  ${FirstCompareLink}
+    Sleep  2
+    Scroll Element Into View     ${ProductImgtoscroll}
+#    Wait Until Element Is Visible    ${SecondCompareLink}   ${Timeout}    "${SecondCompareLink}" is not visible on the screen"
     Click Element  ${SecondCompareLink}
-    Wait Until Element Is Visible       ${MDPCompareSection}    12s
+    Wait Until Element Is Visible       ${MDPCompareSection}
     Log to Console     "Compare window should be displayed at the bottom with the products selected"
 
 
@@ -279,7 +303,9 @@ Verify Product_Spec_MDPCompareWindow
     [Arguments]     ${ToggleButtonCompareWindow}
     [Documentation]     Verify Product Specifications in Compare Window
     Verify Element Exists      ${ProductNameCompareWindow}
-    Verify Element Exists      ${ProductImgCompareWindow}
+#    Sleep  3
+#    Wait Until Element Is Visible    ${ProductImgCompareWindow}   12s
+#    Verify Element Exists      ${ProductImgCompareWindow}
     Verify Element Exists      ${ProductPriceCompareWindow}
     Log to Console     "Product specifications is displayed along with name, image and price"
 
@@ -288,9 +314,10 @@ Verify RemoveLink_MDPCompareWindow
     [Arguments]     ${RemoveLinkCompareWindow}
     [Documentation]     Verify Product removed from 'Compare products' window
     Click On Element    ${RemoveLinkCompareWindow}
-    ${ProductCount}   Get Element Count    ${ProductImgCompareWindow}
+    Sleep  2
+    ${ProductCount}   Get Element Count    ${ProductNameCompareWindow}
     Log   ${ProductCount}
-    Should Be True     ${ProductCount}    2
+    Should Be True     ${ProductCount}    1
     Log to Console      "Product is removed from 'Compare products' window"
 
 
@@ -334,23 +361,106 @@ Verify Category and Select dropdown
      sleep      3s
      Click On Element    ${Category_dropdown_values}
 ################################################END OF Code######################################
+##################################### Validate Facets & Filters in Search Results Page #######################
+#Search Any Keyword
+#    [Arguments]     ${enter_search}     ${anytext}
+#    Enter Value     ${enter_search}     ${anytext}
+#    Click on element    ${btn_begin_your_search}
+#    Sleep   4
+#    Element Should Contain     ${search_result}        ${txt_result}
+#    #Verify Element Text   ${search_result}      ${txt_result}
+#    Verify Element Exists  ${ResultsForPavilion}
+#    capture page screenshot   ${CURDIR}${/}/AllScreenCaptures/SearchResultPage.png
+
+Verify Category and dropdown
+    [Arguments]     ${category_txt}     ${dropdown_ele}
+    verify element exists   ${category_txt}
+     mouse over     ${dropdown_ele}
+     create list
+     Click On Element    ${dropdown_ele}
+#    sleep      3s
+#     Click On Element    ${Category_dropdown_values}
+
+Verify BreadcrumbandFacettrial in Search
+    [Arguments]     ${FacetCrumbWrapper}
+    [Documentation]     Verify Breadcrumb and facet trail format
+    Sleep  4
+    Scroll To Element In View    (//a//img)[5]
+    Wait Until Element is Visible  (//a//img)[5]
+    Click Element Using JavaScript     ${SaleDropdown}
+    Wait Until Element is Visible   ${SaleCheckbox}
+     Click Element Using JavaScript     ${SaleCheckbox}
+    Scroll To Element In View   ${InCartPricingCheckbox}
+    Wait Until Element is Visible   ${InCartPricingCheckbox}
+    Click On Element     ${InCartPricingCheckbox}
+    Sleep  6
+    @{FacetCrumbList}=  Get WebElements   ${FacetCrumbWrapper}
+       FOR  ${el}    IN  @{FacetCrumbList}
+       ${txt}=  Get Text  ${el}
+       Log  ${txt}
+    END
+    Should be equal    ${txt}   pavilion / Laptops & TabletsSaleIn Cart Pricing   "FacetCrumbcrumb doesnot match"
+    Verify Element Exists       ${ClearAllFacetTrail}
+    Log to Console  ${txt}  "Category + Facet trail + Clear all is Displayed"
+
+Verify Facet_Selection_Results in Search
+    [Arguments]     ${SaleFacetCrumb}
+    [Documentation]     Verify Results refined based on the facet selection
+    Verify Element Exists  ${SaleFacetCrumb}
+    Verify Element Exists  ${InCartPricingFacetCrumb}
+    Log to Console      "Results are refined based on the facet selection"
+
+Verify ClearAllFacets_inFilters in Search
+    [Arguments]     ${ClearALlFilters}
+    [Documentation]     Verify Results refined to default
+    Click Element       ${ClearALlFilters}
+    Sleep   2
+    @{FacetCrumbList}=  Get WebElements   ${FacetCrumbWrapper}
+       FOR  ${el}    IN  @{FacetCrumbList}
+       ${txt}=  Get Text  ${el}
+       Log  ${txt}
+    END
+    Should be equal    ${txt}   pavilion / Laptops & Tablets   "Results are not refined to default"
+    Log to Console      "Results are refined to default"
+
+
 ############################ Validate Compare option in Search Results Page #######################################
 Verify Search Result Page
     [Arguments]   ${searched_values}
     Enter Value    ${search_laptop}   ${searched_values}
     sleep   2
-    Click Element    ${click_element}
+#    wait until element is visible   ${click_element}       ${Timeout}    "${click_element}" is not visible on the screen
+    Click Element   ${click_element}
+#    Click Element    ${click_element}
 #    ${search}=    Get Text   ${laptop_search}
 #    sleep   2
     Element Should Contain     ${search_result}        ${laptop_search}
+    Scroll Element Into View     ${load_more}
+    wait until element is visible   ${load_more}       ${Timeout}    "${load_more}" is not visible on the screen
+    Click Element   ${load_more}
+
+#    Click Element   //div[@class='loadMorePages']/label
 
 Verify STO_CTO Comparison
     [Arguments]       ${Sto_fst_loc}  ${Sto_sec_loc}  ${Cto_loc}
+    Scroll Element Into View     ${Sto_fst_loc}
+    wait until element is visible   ${Sto_fst_loc}       ${Timeout}    "${Sto_fst_loc}" is not visible on the screen
     Click Element      ${Sto_fst_loc}
+    Scroll Element Into View     ${Sto_sec_loc}
+    wait until element is visible   ${Sto_sec_loc}       ${Timeout}    "${Sto_sec_loc}" is not visible on the screen
     Click Element        ${Sto_sec_loc}
-#    sleep  1
-    Click Element         ${Cto_loc}
+#    Scroll Element Into View     ${load_more}
+#    wait until element is visible   ${load_more}       ${Timeout}    "${load_more}" is not visible on the screen
+#    Click Element   ${load_more}
+#    Scroll Element Into View     ${Cto_loc}
+#    wait until element is visible   ${Cto_loc}       ${Timeout}    "${Cto_loc}" is not visible on the screen
+#    Click Element        ${Cto_loc}
     #Checkbox Should Be Selected    ${Checkbox}
+    Sleep  2
+    Scroll Element Into View    ${Cto_loc}
+    Wait Until Element Is Visible  ${Cto_loc}
+    Click On Element    ${Cto_loc}
+    Sleep   1
     ${ProductCount}   Get Element Count    ${ProductCard}
     Should Be True     ${ProductCount}    3
     Log To Console   Products are added, shown in compare section and checkbox is also checked
@@ -385,20 +495,27 @@ Verify AddToCart_STO_SearchPage
     [Arguments]     ${AddToCart_STO}
     [Documentation]     Verify Add to Cart for STO Product
     ${productName} =    Get Text    ${ProductName_STO}
+    Scroll Element Into View    ${AddToCart_STO}
+    Wait Until Element Is Visible  ${AddToCart_STO}
     Click On Element     ${AddToCart_STO}
+    Sleep  1s
     Wait Until Element Is Visible    ${JustAddedtoCartPopup}
     run keyword if      '${tech}'=='WEB'    run keywords
     ...     Mouse Over      ${miniCartIcon}
     ...     AND     Verify Element Exists       ${miniCartTitle}
     ...     AND     Element Should Contain      ${minicartProductContent}      ${productName}      "Product Name is not visible on the Mini Cart"
     Log to Console   "STO Product is Added to the Cart"
+    Sleep     10
 
 Verify CTO_SearchPage
     [Arguments]     ${CTOCustnBuyButton}
     [Documentation]     Verify CTO Search Page
+#    Scroll Element Into View    ${CTOCustnBuyButton}
+    Wait Until Element Is Visible  ${CTOCustnBuyButton}
     Click On Element    ${CTOCustnBuyButton}
     Wait Until Element Is Visible    ${ConfTitle}   12s
     Log to Console      "Customize & Buy button clicked Successfully and Configurator Page is Displayed!"
+
 
 ###########################  Validate Search results page & sorting  ######################################
 #
@@ -453,6 +570,8 @@ Ensure Product Details
     [Documentation]     Verify the product details displayed under Buy Tab
     Page Should Contain Element  ${ProductName}  "Buy Tab doesnot contain Product Name"
     sleep       2s
+    Scroll To Element In View   ${CarouselIcon}
+    Wait Until Element Is Visible  ${CarouselIcon}
     Click Element  ${CarouselIcon}
     Page Should contain Element  ${AltImg}  "Image and alternate images is not displayed when we click on carousel icon"
     Page Should Contain Element  ${RatingsnReview}  "Buy Tab doesnot contain Ratings & Reviews"
@@ -461,7 +580,8 @@ Ensure Product Details
     Run Keyword And Ignore Error    Page Should Contain Element  ${Energy_Star}  "ENERGY STAR doesnot exist"
     Page Should Contain Element  ${ksp}  "Key selling points (KSP) doesnot exist"
     Page Should Contain Element  ${TechSpec}   "Tech spec link doesnot exist"
-    Page Should Contain Element  ${HpPurchaseRewards}  "Loyalty generic message â€˜Earn 3% in HP Rewards with purchaseâ€™ doesnot exist"
+#    Page Should Contain Element  ${HpPurchaseRewards}  "Loyalty generic message â€˜Earn 3% in HP Rewards with purchaseâ€™ doesnot exist"
+    Scroll To Element In View   ${PriceStart}
     Page Should Contain Element  ${PriceStart}  "Price is not displayed with 'Starting at' and $ displayed"
     Run Keyword And Ignore Error    Page Should Contain Element   ${OnlyXleft}  "Inventory label (Only X left in stock) is not displayed for applicable products"
     Run Keyword And Ignore Error    Page Should Contain Element   ${ViolatorMsg}  "Violator Message is not available"
@@ -518,6 +638,8 @@ Ensure Product Details
 Verify LoadMore Button
     [Arguments]     ${LoadMoreButton}
     [Documentation]    Verify Next set of results is displayed
+    Scroll Element Into View    ${LoadMoreButton}
+    Wait Until Element Is Visible  ${LoadMoreButton}
     click element    ${LoadMoreButton}
     Sleep  2
     ${ProductCount}   Get Element Count    ${UnitProductSection}
@@ -539,13 +661,25 @@ Verify Compare Tab
 Verify Comparison STO_CTO
     [Arguments]     ${CTOComparelink}
     [Documentation]    Verify Elements in Compare Tab
-
+    Scroll Element Into View    ${LoadMoreButton}
+    Wait Until Element Is Visible  ${LoadMoreButton}
     Click On Element    ${LoadMoreButton}
-    Click On Element    ${LoadMoreButton}
-    Sleep   1
+#    Click On Element    ${LoadMoreButton}
+    #Sleep   1
+    Scroll Element Into View    ${STOCompareFirstLink}
+    Wait Until Element Is Visible  ${STOCompareFirstLink}
     Click On Element    ${STOCompareFirstLink}
-    Sleep   1
+    Sleep  2
+    Scroll Element Into View    ${LoadMoreButton}
+    Wait Until Element Is Visible  ${LoadMoreButton}
+    Click On Element    ${LoadMoreButton}
+    Sleep  4
+    Scroll Element Into View    ${STOCompareSecondlink}
+    Wait Until Element Is Visible  ${STOCompareSecondlink}
     Click On Element    ${STOCompareSecondlink}
+    Sleep  2
+    Scroll Element Into View    ${CTOComparelink}
+    Wait Until Element Is Visible  ${CTOComparelink}
     Click On Element    ${CTOComparelink}
     Sleep   1
 #    #Checkbox Should Be Selected    ${Checkbox}
@@ -620,7 +754,8 @@ Verify Elements MiniCartPopup
     [Documentation]     Verify STO product is being added to cart successfully
     wait until element is visible   ${ProductName_STO}    15
     ${productName} =    Get Text    ${ProductName_STO}
-    Sleep  2
+    Scroll To Element In View   ${AddToCart_STO}
+    Wait Until Element Is Visible  ${AddToCart_STO}
     Click On Element     ${AddToCart_STO}
     Sleep   2
     Verify Element Exists    ${JustAddedtoCartPopup}
@@ -640,9 +775,11 @@ Verify Elements MiniCartPopup
 Verify CTO_Config_Page
     [Arguments]     ${CTOCustnBuyButton}
     [Documentation]     Verify Customize & Buy Button and CTO Configurator Page
-    Click On Element    ${closePdpBlockpopup}
+#    Click On Element    ${closePdpBlockpopup}
+    Scroll To Element In View   ${CTOCustnBuyButton}
+    Wait Until Element Is Visible  ${CTOCustnBuyButton}
     Click On Element    ${CTOCustnBuyButton}
-    Sleep    3s
+    Wait Until Element Is Visible  ${ConfTitle}
     Element Should be Visible   ${ConfTitle}
     Log to Console      "Customize & Buy button clicked Successfully and Configurator Page is Displayed!"
 
@@ -655,7 +792,7 @@ Verify Filters_in_PLP
     Verify Element Exists       ${ProductAvailabilityFilter}
     Verify Element Exists       ${SaleFilter}
     Verify Element Exists       ${UseFilter}
-    Verify Element Exists       ${BrandFilter}
+#    Verify Element Exists       ${BrandFilter}
     Log To Console      "Filters are displayed such as Sale,PRODUCT AVAILABILITY,USE,BRAND... etc"
 
 Verify BreadcrumbandFacettrial
@@ -663,8 +800,12 @@ Verify BreadcrumbandFacettrial
     [Documentation]     Verify Breadcrumb and facet trail format
     Click Element     ${InStockCheckbox}
     Sleep    2
+    Scroll To Element In View   ${BusinessCheckbox}
+    Wait Until Element Is Visible  ${BusinessCheckbox}
     Click Element     ${BusinessCheckbox}
     Sleep    2
+    Scroll To Element In View   ${EnterpriseCheckBox}
+    Wait Until Element Is Visible  ${EnterpriseCheckBox}
     Click Element     ${EnterpriseCheckBox}
     Sleep    2
     @{FacetCrumbList}=  Get WebElements   ${FacetCrumbWrapper}
@@ -672,17 +813,18 @@ Verify BreadcrumbandFacettrial
        ${txt}=  Get Text  ${el}
        Log  ${txt}
     END
-    Should be equal    ${txt}   	Printers In StockBusinessEnterprise   "FacetCrumbcrumb doesnot match"
+#    Should be equal    ${txt}   	Printers In StockBusinessEnterprise   "FacetCrumbcrumb doesnot match"
+    Should be equal    ${txt}   Printers In StockBusinessEnterprise   "FacetCrumbcrumb doesnot match"
     Verify Element Exists       ${ClearAllFacetTrail}
     Log to Console  ${txt}  "Category + Facet trail + Clear all is Displayed"
 
 
 Verify Facet_Selection_Results
-    [Arguments]     ${plp_filtered_url}
+    [Arguments]      ${plp_uat_filtered_url}
     [Documentation]     Verify Results refined based on the facet selection
     ${CurrentURL} =   Get Location
     Log   ${CurrentURL}
-    Should be equal    ${CurrentURL}    ${plp_filtered_url}     "Results are not refined based on the facet selection"
+    Should be equal    ${CurrentURL}    ${plp_uat_filtered_url}     "Results are not refined based on the facet selection"
     Log to Console      "Results are refined based on the facet selection"
 
 Verify ClearAllFacets_inFilters
@@ -692,8 +834,9 @@ Verify ClearAllFacets_inFilters
     Sleep   2
     ${CurrentURL} =   Get Location
     Log   ${CurrentURL}
-    Should be equal    ${CurrentURL}    ${plp_filters_facets}     "Results are not refined to default"
+    Should be equal    ${CurrentURL}    ${plp_uat_filters_facets}     "Results are not refined to default"
     Log to Console      "Results are refined to default"
+
 
 
 ##################################Validate MLP Features##########################################################################
@@ -859,6 +1002,7 @@ Login to application
 
     Capture page screenshot
 
+
 ##################################End Of MLP Scenerio##############################################################
 
 
@@ -879,17 +1023,17 @@ Verify Check Your Balance Link
     ...  ELSE  Fail Check your balance popup is not displayed
 
 Verify Gift Card Balance Pop Up is Closed
-    [Arguments]   ${pop_close}  ${check_yourbalance}
-    Click Element   ${pop_close}
-    ${giftcard_popup_closed}=  run keyword and return status  Element Should Be Visible  ${check_yourbalance}
-    Run Keyword If  ${giftcard_popup_closed}==True  Log  Gift card balance pop up is closed
-    ...  ELSE  Fail Gift card balance pop up is not closed
-    sleep  5
+   [Arguments]   ${pop_close}
 
+   Scroll To Element In View     ${pop_close}
+   wait until element is visible   ${pop_close}       ${Timeout}    "${pop_close}" is not visible on the screen
+   Click Element Using JavaScript   ${pop_close}
 
 Verify Amount Dropdown under Customize and Buy for physical gift card
     [Arguments]   ${Cutomize_dropdown}   ${Amountdropdown}
-    Click Element   ${Cutomize_dropdown}
+    Scroll To Element In View     ${Cutomize_dropdown}
+    wait until element is visible   ${Cutomize_dropdown}       ${Timeout}    "${Cutomize_dropdown}" is not visible on the screen
+    Click Element Using JavaScript   ${Cutomize_dropdown}
     Verify Element Exists     ${Amountdropdown}
 
 Verify From and To Text Field
@@ -910,14 +1054,18 @@ Verify Price under Physical gift card
     Verify Element Exists    ${price_gift}
 
 Verify Amount is selected in the dropdown
-    [Arguments]     ${amount_selected}
-    Click Element   //div[@class='dropdown ']
-    Click Element   //option[contains(text(),'$10.00')]
-    Verify Element Exists    ${amount_selected}
+    [Arguments]     ${amount}
+    Click Element   //div[@class='custom dropdown gcdropdown']
+
+    wait until element is visible   ${amount}       ${Timeout}    "${amount}" is not visible on the screen
+    Click Element Using JavaScript   ${amount}
+#    Click Element    ${amount}
+#    Verify Element Exists    ${amount}
 
 Verify Your Name Field
     [Arguments]   ${enter_name}
     Enter Value    ${enter_name}    ${value_name}
+
 
 Verify Recipient's name Field
     [Arguments]    ${enter_recipname}
@@ -936,14 +1084,14 @@ Verify Features of Gift card
 
 Verify Special Offers of the Gift Card
     [Arguments]    ${Special_offrtab}  ${offer_display}
-    Click Element   ${Special_offrtab}
+    Click On Element   ${Special_offrtab}
     Verify Element Exists   ${offer_display}
     sleep  2
 
 Verify Add To Cart by adding Gift Card
-    [Arguments]        ${add_gift}   ${just_addedcart}
+    [Arguments]        ${add_gift}
     Click Element       ${add_gift}
-    Verify Element Exists   ${just_addedcart}
+#    Verify Element Exists   ${just_addedcart}
 
 Verify Amount Dropdown for Virtual gift card
     [Arguments]   ${dropdown_virtual}
@@ -973,9 +1121,9 @@ Verify Price under Virtual gift card
 
 Verify dropdown Amount is selected in PDP
     [Arguments]     ${Virtual_amount}
-    Click Element   //select[@class='dropdown-menu']
-    Click Element   //option[contains(text(),'$10.00')]
-    Verify Element Exists    ${Virtual_amount}
+    Click Element   //a[@class='current']
+    Click Element   //div[@class='custom dropdown gcdropdown open']/ul/li[2]
+#    Verify Element Exists    ${Virtual_amount}
 
 Verify Your Name for Virtual Gift Card
     [Arguments]    ${Virtualgift_name}
@@ -1016,7 +1164,7 @@ Verify Special Offers of Virtual Gift Card
 Verify Add To Cart by adding Virtual Gift Card
     [Arguments]        ${add_virtualgift}   ${just_addedvirtual}
     Click Element       ${add_virtualgift}
-    Verify Element Exists   ${just_addedvirtual}
+#    Verify Element Exists   ${just_addedvirtual}
 
 ################################End Of PDP#############################################################
 ###############################Validate STO PDP#######################################################################
@@ -1072,15 +1220,15 @@ Verify Add To Cart For STO PDP Product
     click on element    ${elem}
     sleep      2
     run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Mouse Over     //button[@class="button-icon "]
-    ...     AND     Verify Element Exists       //div[@class='minicart_title']
+    ...     Mouse Over     //a[@id='shop_widget']
+    ...     AND     Verify Element Exists       //div[@class='minicarttitle']//h3
     ...     AND     Element Should Contain      //div[@class="mcprodcont"]      ${productName}      "Product is not added to the cart"
 
 Verify Features Tab For STO PDP Product
-    [Arguments]    ${Sto_feature_locate}  ${Sto_mouse_super}
+    [Arguments]    ${Sto_feature_locate}
     Click Element    ${Sto_feature_locate}
-    Mouse Over        ${Sto_mouse_super}
-    Verify Element Exists   ${Sto_sup_element}
+#    Mouse Over        ${Sto_mouse_super}
+#    Verify Element Exists   ${Sto_sup_element}
     sleep  2
 
 Verify You might also be interested in section
@@ -1150,6 +1298,7 @@ Verify Reviews tab For STO PDP
     Verify Element Exists   ${Support_hptab_review}
     Close Browser
 
+
     ################# Validate ESD PDP#########################################################################
 
 Verify ESD Product Name
@@ -1195,10 +1344,11 @@ Validate Digital Download
 Verify Features Tab For ESD
     [Arguments]    ${feattures_esd}
     Click Element     ${feattures_esd}
+    Sleep     2
 
 Verify Spec Tab For ESD
     [Arguments]    ${spec_tab}
-    Click Element    ${spec_tab}
+    Click On Element    ${spec_tab}
 
 Verify Reviews Tab For ESD
     [Arguments]   ${Reviews_tab}
@@ -1264,7 +1414,6 @@ Verify Reviews Tab For Bundle Product
     [Arguments]     ${Review_loc}     ${review_tab}
     Click Element   ${Review_loc}
     Verify Element Exists    ${review_tab}
-
 #########################################End Of STO PDP###########################################################
 
 Search SKU
@@ -1304,7 +1453,7 @@ Verify the details displayed in PDP
     ${present}=  Run Keyword And Return Status    Element Should Contain    //div[@class="loyalty-badge"]      HP Rewards Points
     Run Keyword If    ${present}    log to console      "Loyality Badge Configured"
 
-    Verify Element Exists   //div[@class='purchase-info ']//button[text()='Add to cart']
+    Verify Element Exists   (//span[@class='cta_price']//a[@id='add2cart-btn'])[1]
 
 Verify BreadCrumblist
     [arguments]    ${breadcrumb_locator}
@@ -1316,27 +1465,26 @@ Add to cart and verify eCare
     [arguments]    ${btn_locator}
     Click On Element    ${btn_locator}
     Sleep   1s
-    Verify Element Exists   //input[@id='serial-textbox']
-    Verify Element Exists   //button[@id='continue']
-    Element Should Contain  //div[@class='how-to']/h2    How do I find my serial number?
-    Page should contain image   //div[@class='how-to']//img
-    Verify Element Exists   //div[@class='pdp-bg clearfix pdp']//button[@class='modal-close-btn']
+    Verify Element Exists   //input[@id='ecp']
+    Verify Element Exists   //a[@id='continueBtn']
+    Element Should Contain  //div[@class='cpDisclaiker showforNew']//h3    How do I find my serial number?
+    Page should contain image   //div[@class='cpDisclaiker showforNew']//img
+    Verify Element Exists   //a[@class='close-reveal-modal closeBtn']
     Capture page screenshot
 
 
 Browse and add Compaitable Hardware
-    [arguments]    ${url}   ${addtocart}
-    Go to      ${url}
+    [arguments]    ${Uat_url}   ${addtocart}
+    Go to      ${Uat_url}
     sleep  5s
-    Verify Add To Cart For STO PDP Product     ${addtocart}        //div[@class='product-detail with-bundle']/h1
+    Verify Add To Cart For STO PDP Product     ${addtocart}        //h1[@class='prodTitle no-margin flushed']/span
 
 Browse for eCarepack SKU
     [arguments]    ${ecare_url}   ${addtocart}
     Go to      ${ecare_url}
     sleep  5s
     Click On Element    ${addtocart}
-    Sleep   1s
-    Verify Element Exists   //h2[contains(text(),'Which product would you like to protect?')]
+
     Capture Page Screenshot
 
 
@@ -1346,6 +1494,8 @@ Select Hardware and Verify
     Sleep   2s
     Click On Element    ${continue_btn}
     #Verify Add To Cart For STO PDP Product  ${continue_btn}     ${hw}//h3
+
+
 
 
  ## PDP_NEW_SUBHASH_END
@@ -1426,6 +1576,44 @@ Verify the Search Result with zero value
 
 
 
+#Login to GS user application
+#  #  [Arguments]         ${checkme_robot}
+#    Click Element   //a[contains(text(),'Sign in/Register')]
+#    Capture Page Screenshot
+#    Click Element    //ul[@class='lastBox topmenuchild myAccountDd']//a[text()='Register']
+#    Enter Value     //input[@id='firstName']      Neetu1234
+#    Enter Value      //input[@id='lastName']       Pal1234
+#    ${email} =      Generate Random String  2
+#    Enter Value     //input[@id='email']       ${email}+neetu.pal@hp.com
+#    Enter Value     //input[@id='password']   palne123@123
+#    Enter Value     //input[@id='confirmPassword']     palne123@123
+#    sleep   4s
+#
+#    #Select Application Frame     ${check_robot
+##    Select Frame   xpath://iframe[@title='recaptcha challenge']
+##    Verify Element Exists   //div[@class='recaptcha-checkbox-checkmark']
+##    Scroll To Element In View   //div[@class='recaptcha-checkbox-checkmark']
+##    click on element    //div[@class='recaptcha-checkbox-checkmark']
+##    Unselect Application Frame
+#
+#    # Select Frame    xpath://iframe[@title='recaptcha challenge']
+#     Select Frame    xpath://*[@id="root"]/div/div/div[1]/div[2]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/div/div/iframe
+#     Current Frame should contain     I'm not a robot
+#     Scroll To Element In View   xpath://div[@class='recaptcha-checkbox-checkmark']
+#     sleep  2s
+#     click element using javascript   xpath://div[@class='recaptcha-checkbox-checkmark']
+#     #Select checkbox   xpath://div[@class='recaptcha-checkbox-checkmark']
+#    # Unselect Application Frame
+#     unselect frame
+#     Scroll To Element In View    xpath://button[text()='SIGN UP']
+#
+#     #Click On Element   xpath://button[text()='SIGN UP']
+#     Press Keys    xpath://button[text()='SIGN UP']    ENTER
+#     #Click Element Using JavaScript   xpath://button[text()='SIGN UP']
+#    # Click Button     xpath://*[@id="root"]/div/div/div[1]/div[2]/div[2]/div/div/div[2]/div/form/button
+#     sleep  10s
+
+
 
 
 ############################################# For CLP PAGE ##############################################
@@ -1486,8 +1674,11 @@ Verify the products under Shop section
 Validate Shop link in banner
     [Arguments]     ${bannerId}
     [Documentation]     Validate Shop Link in Banner
-    Click On Element   ${bannerId}
-    sleep   1
+    sleep   4
+   # wait until element is visible     ${bannerId}       ${Timeout}        "Shop banner link is not visible"
+    click element using javascript    ${bannerId}
+    #Click On Element    ${bannerId}
+    sleep   2
 
 Validate the products under bottom Espot
     [Arguments]     ${espotSection}
@@ -1595,7 +1786,9 @@ Change the color and verify the product images
 Verify You might also be interested in
     [Arguments]     ${locator}
     [Documentation]     Verify You might also be interested in Section
-    Scroll Element Into View    //h2[contains(text(),'You might also be interested in...')]
+    wait until element is visible    //h2[contains(text(),'You might also be interested in..')]       ${Timeout}        "Section is not visible"
+    #Wait Until Element Is Visible    //h2[contains(text(),'You might also be interested in..')]
+    Scroll Element Into View    //h2[contains(text(),'You might also be interested in..')]
     sleep    5
 #    ${index}        set variable     0
 #    ${elemDetails}      Get WebElements    ${locator}
@@ -1621,9 +1814,9 @@ Verify Accessorie tab
     [Documentation]     CLick on the tab and verify the tab content
     click on element    ${tab_locator}
     sleep   2
-    Verify Element Exists     //div[contains(text(),'Browse Accessories')]
-    ${count}=  Get Element Count         //div[@class="cat-acc-carousel"]//li
-    log to console      "${count} Browse Accessories product available"
+#    Verify Element Exists     //div[contains(text(),'Browse Accessories')]
+#    ${count}=  Get Element Count         //div[@class="cat-acc-carousel"]//li
+#    log to console      "${count} Browse Accessories product available"
 
 Verify Support tab
     [Arguments]     ${tab_locator}
@@ -1631,11 +1824,14 @@ Verify Support tab
     click on element    ${tab_locator}
     sleep   2
     Verify Element Exists     //h2[contains(text(),'Recommended HP Care Packs')]
+
     ${index}        set variable     0
-    ${elemDetails}      Get WebElements    //div[@class='pdp-supp-list']//li
+    #${elemDetails}      Get WebElements    //div[@class='pdp-supp-list']//li
+    ${elemDetails}      Get WebElements    //*[@id="serviceAndSupport"]/div[2]/div/div[2]/div/div[1]/ul/li
     FOR    ${element}    IN    @{elemDetails}
-        Length Should Be    ${element.find_elements_by_xpath(".//button[text()='Add to cart']")}    1       "Add to cart does not Exists for the Product"
-        Length Should Be    ${element.find_elements_by_xpath(".//a[text()='View Details']")}    1       "View Details does not Exists for the Product"
+        sleep    4s
+        Length Should Be    ${element.find_elements_by_xpath(".//a[@class='btn add2cart-btn bluebtn bluebtnA2C btnA2C text-center']")}    1       "Add to cart does not Exists for the Product"
+        #Length Should Be    ${element.find_elements_by_xpath(".//a[text()='View Details']")}    1       "View Details does not Exists for the Product"
         ${index}        Evaluate         ${index} + 1
     END
     log to console      "Recommended HP Care Packs should be displayed ${index} products."
@@ -1643,6 +1839,7 @@ Verify Support tab
 Verify CTO configurator page
     [Arguments]      ${btn_locator}
     [Documentation]     Verify CTO pages
+    sleep   3s
     Verify Element Exists   //h2[@id='confTitle']
     Page Should Contain Image   //div[@id="section_summary"]//img
   #  Verify Element Exists   //div[@id="shipDate_sideBar"]
@@ -1775,13 +1972,17 @@ Login to SMB_Private application
     [Arguments]     ${SignIn}
     Click Element   ${SignIn}
     Click Element   ${SignIn_DropDown}
-    Enter Value      ${UserName}   ${smb_pvt_username}
+#    Wait Until Elememnt Is Visible  ${UserName}
+    Sleep  2
+    Enter Value      ${UserName}   ${uat_smbpvt_username}
     Click Element   ${NextButton}
-    Enter Value        ${Password}      ${smb_pvt_password}
+    Sleep  2
+    Enter Value        ${Password}      ${uat_smbpvt_password}
     Click Element   ${SignInButton}
+    Sleep  4
     Wait Until Element Is Visible    ${WelcomeTextDropdown}
     ${Welcome_text} =  Get Text   ${WelcomeTextDropdown}
-    Should be equal   ${Welcome_text}    ${Welcome_txt_Expected}  "User is not logged in"
+    Should be equal   ${Welcome_text}    ${Welcome_txt_ExpectedMyQuotes}  "User is not logged in"
     Log To Console      "HPID Sign in page is displayed with User name field"
     Log To Console      "User is successfully logged in displayed on top with Welcome, <user name>"
 
@@ -1829,7 +2030,7 @@ Verify ViewQuoteLink
 Verify ManageQuoteSection
     [Arguments]     ${EmailToTextbox}
     [Documentation]     Verify Manage Quote Section
-    Verify Element Exists       ${EmailToTextbox}
+    Wait Until Element Is Visible       ${EmailToTextbox}
     Verify Element Exists       ${SendQuoteButton}
     Log to Console      "Manage Quote Section is Displayed with the Details"
 
@@ -1838,7 +2039,7 @@ Verify QuoteSummarySection
     [Arguments]     ${QuoteNumber}
     [Documentation]     Verify Quote Summary Section
     Verify Element Exists       ${QuoteNumber}
-    Verify Element Exists       ${QuoteStatus}
+    Verify Element Exists       ${QuoteStatusSummarySec}
     Verify Element Exists       ${AgentID}
     Verify Element Exists       ${ValidFromToDate}
     Verify Element Exists       ${SubTotal}
@@ -1860,6 +2061,100 @@ Verify QuoteDetailsSection
     Log to Console      "Quote Details Section is Displayed with the Details"
 
 
+###########################    Validate registering SMB Public user and Edit  ################################
+Enter Registration Page Details
+    [Arguments]     ${FirstName}
+    [Documentation]    Verify Registeration page
+    Sleep  2
+    Enter Value  ${FirstName}   ${FirstNameInput}
+    Enter Value  ${LastName}   ${LastNameInput}
+    ${email} =    Generate Random String  9
+    ${emailText}   Set Variable    ${email}@hp.com
+    ${emailText} =  Convert To Lower Case   ${emailText}
+    Set Global Variable    ${emailText}
+    Enter Value  ${EmailID}   ${emailText}
+    Enter Value  ${Password}  ${PasswordInput}
+    Enter Value  ${ConfirmPassword}   ${PasswordInput}
+    sleep   4s
+    Select Frame    ${CaptchaFrame}
+    Current Frame should contain     I'm not a robot
+    Scroll To Element In View   ${CaptchaCheckbox}
+    sleep  2s
+    click element using javascript   ${CaptchaCheckbox}
+    Unselect Application Frame
+    Click On Element   ${SubmitFrame}
+    unselect frame
+    Scroll To Element In View    ${SubmitButton}
+    Press Keys    ${SubmitButton}    ENTER
+    sleep  10s
+    Log to Console  "User Details entered successfully and User is redirected to ETR registration page successfully"
+
+Verify Registration Page
+    [Arguments]     ${FirstNameLabel}
+    Wait Until Page Contains Element   ${FirstNameLabel}
+    Element Should Contain      ${FirstNameLabel}     ${FirstNameInput}
+    Element Should Contain       ${LastNameLabel}     ${LastNameInput}
+    Wait Until Page Contains Element      ${EmailIDTextbox}
+    Element Should Contain       ${EmailIDTextbox}     ${emailText}
+    Log to Console   "First Name, Last Name, Email address fields are auto populated from HPID registration page"
+
+Verify Complete Button
+    [Arguments]     ${CompleteButton}
+    Click On Element    ${CompleteButton}
+    Wait Until Page Contains Element   //h3[@class='sectiontitle hide-for-small' and contains(text(),'Account information')]
+    Element should contain  (//div[@class='small-12 medium-3 column'])[1]    I shop for
+    Element should contain  (//div[@class='small-12 medium-3 column'])[1]   Business
+    Element should contain  //span[@class='shopforcompany']   ${CompanyNameText}
+    Element should contain  //div[@class='small-12 medium-3 column email_ui']   ${emailText}
+    Element should contain  (//div[@class='small-12 medium-3 column'])[2]   Store Membership
+    Element should contain  (//div[@class='small-12 medium-3 column'])[2]   General Store
+
+Verify New Email Address
+    [Arguments]    ${NewEmailId}
+    ${newEmail} =      Generate Random String  10
+    ${newEmailText}   Set Variable    ${newEmail}@hp.com
+    ${newEmailText} =  Convert To Lower Case   ${newEmailText}
+    Set Global Variable    ${newEmailText}
+    Enter Value  ${NewEmailId}   ${newEmailText}
+    Enter Value   ${ConfirmNewEmailId}    ${newEmailText}
+    Click On Element   ${UpdateButtonEmailID}
+#    Sleep  4
+    Wait Until Page Contains Element   ${EmailUpdatedSuccessfully}      ${Timeout}   ""Email Updated Successfully" message is Not displayed"
+    Log to Console  ""Email Updated Successfully" message is displayed"
+
+Verify Logout
+    [Arguments]     ${LogoutDropdown}
+    Scroll To Element In View   ${WelcomeTextDropdown}
+    Wait Until Element Is Visible    ${WelcomeTextDropdown}
+    Click Element   ${WelcomeTextDropdown}
+    Click Element   ${LogoutDropdown}
+    Sleep  2
+    ${CurrentURL} =   Get Location
+    Log   ${CurrentURL}
+    Should be equal    ${CurrentURL}    ${uat_url}
+    Log to Console      "User Logged out successfully"
+
+New Registered User Login
+    [Arguments]     ${SignIn}
+    Click Element   ${SignIn}
+    Click Element   ${SignIn_DropDown}
+#    Wait Until Elememnt Is Visible  ${UserName}
+    Sleep  2
+    Enter Value      ${UserName}   ${newEmailText}
+    Click Element   ${NextButton}
+    Sleep  4
+    Verify Element Exists   ${HelloText}
+    Element Should Contain      ${PasswordPageEmail}     ${newEmailText}
+    Enter Value        ${Password}      ${PasswordInput}
+    Click Element   ${SignInButton}
+    Sleep   2
+    Wait Until Element Is Visible    ${WelcomeTextDropdown}
+    ${Welcome_text} =  Get Text   ${WelcomeTextDropdown}
+    Should be equal   ${Welcome_text}    ${Welcome_txt_NewUser}  "Welcome text not Visible"
+    Log To Console      "HPID Sign in page is displayed with User name field"
+    Log To Console      "User is successfully logged in displayed on top with Welcome, <user name>"
+
+
 
 ########################################## Header and FOoter #################################
 Verify the Header links
@@ -1878,6 +2173,7 @@ Verify the Footer links
     Verify Element Exists       ${locator_hppartner}
     Verify Element Exists       ${locator_stayconnected}
 
+
 Verify the Bottom row links
     [Documentation]     Ensure the Bottom row links
     FOR  ${item}  IN  @{list_footer_text}
@@ -1887,13 +2183,17 @@ Verify the Bottom row links
 
 Go to Top sellers section and add STO product
     [Documentation]     Navigate to Top sellers section and add STO product
-    Go To   ${cto_url}
+    Sleep  4s
+    Go To   ${cto_uat_url}
+    Sleep  4s
+    Wait Until Element Is Visible   ${locator_addtocart_btn}
     Add STO Product to Cart and Verify    ${locator_addtocart_btn}      ${locator_stoproduct_title}
 
 Click on View all items in mini cart
     [Documentation]     Navigate to View all items in mini cart
-    #Mouse Over      ${miniCartIcon}
-    click on element    ${miniCartIcon}
+    Sleep  6s
+    Mouse Over      ${miniCartIcon}
+    Click On element    ${miniCartIcon}
     sleep   5s
 
 Verify top header in Checkout page
@@ -1905,6 +2205,8 @@ Take screenshot
     log to console     "This will take my screenshot"
 
 
+
+
 ######################################################## Checkout #####################################################
 Search SKU and add to cart and verify
     [Arguments]     ${skuid}    ${searchbox}
@@ -1914,16 +2216,201 @@ Search SKU and add to cart and verify
     Press Keys    ${searchbox}    ENTER
     #Click on element    ${searchboxbtn}
     Sleep   6
-    ${productName} =    Get Text    //div[contains(@class,'product-detail')]/h1
+    ${productName} =    Get Text    //h1[@class='prodTitle no-margin flushed']/span
     Click on element    ${locator_btn_addtocart}
     sleep   2s
     ${present}=  Run Keyword And Return Status    Element Should Be Visible   (//button[@class='modal-close-btn'])[3]
     Run Keyword If    ${present}    Click on Element    //div[contains(@class,'xsell-modal-container-default')]//button[@class='modal-close-btn']
     sleep   1s
-    Mouse Over     //button[@class="button-icon "]
-    Verify Element Exists       //div[@class='minicart_title']
+    Mouse Over     //a[@id='shop_widget']
+    Verify Element Exists       //div[@class='minicarttitle']/h3
     Element Should Contain      //div[@class="mcprodcont"]      ${productName}      "Product is not added to the cart"
     Click On Element    //a[@class='hf_close_btn']
+
+######################################Verify Shipping Methods in Cart & Checkout pages####################333333333333
+Verify Search STO Product
+    [Arguments]   ${searched_values}
+    Enter Value    ${search_laptop}   ${searched_values}
+    sleep   2
+    Click Element    ${click_element}
+    Element Should Contain     ${search_result}        ${laptop_search}
+
+
+Verify Add To Cart for Checkout STO Product
+    [Arguments]       ${Sto_fst_loc}
+    Scroll Element Into View     ${Sto_fst_loc}
+    wait until element is visible   ${Sto_fst_loc}       ${Timeout}    "${Sto_fst_loc}" is not visible on the screen
+
+    Click Element      ${Sto_fst_loc}
+    Verify Element Exists   ${Checkout_cart}
+
+Verify View Cart and Checkout
+    [Arguments]     ${hover_minicart}      ${click_view}
+    Mouse Over       ${hover_minicart}
+    #sleep  3
+    Click Element       ${click_view}
+
+Verify the Shipping Method displayed
+    [Arguments]      ${shipping_method}
+    Verify Element Exists       ${shipping_method}
+
+Verify details in Cart page
+    [Arguments]
+    Verify Element Exists     (//div[@class='productrow'])[2]
+    Log To Console      Added products with QTY, Price shown with $
+
+
+Verify TOTAL & 'CART TOTAL' amount
+    [Arguments]
+    Verify Element Exists    //div[@class='fltRight totalPrice']/strong
+    Verify Element Exists    //div[@class='lblRcTotalVal']
+
+Verify Checkout as Guest
+    [Arguments]        ${guest_check}    ${secure_check}
+    Click Element    ${guest_check}
+    Verify Element Exists    ${secure_check}
+
+Verify Contact Information and Shipping details
+    [Arguments]
+    Enter Value    //input[@id='cFN']        neetu
+    Enter Value     //input[@id='cLN']        Pal
+    Enter Value     //input[@id='cPN']        9837284673
+    Enter Value     //input[@id='cEmail']       neetu.pal@hp.com
+    Click Element    //a[@class='addrManual']
+    Enter Value     //input[@id='sA1']      406 Blue Room Rd
+    Enter Value     //input[@id='sCity']      Como
+    Enter Value     //input[@id='sState']      38619-4204
+    Enter Value     //input[@id='sCN']      infogain
+
+Verify the Shipping Method
+    [Arguments]      ${shipping_method}
+    Verify Element Exists       ${shipping_method}
+
+Verify the Shipping Charge, Taxes, Total
+    [Arguments]         ${shipping_charges}  ${ship_tax}   ${ship_total}
+    Verify Element Exists      ${shipping_charges}
+    Verify Element Exists     ${ship_tax}
+    Verify Element Exists     ${ship_total}
+
+    ##############Validate registering GS user and Edit##############################################################
+Login to GS user application
+    [Arguments]         ${checkme_robot}
+    Click Element   //a[contains(text(),'Sign in/Register')]
+    Capture Page Screenshot
+    Click Element    //ul[@class='lastBox topmenuchild myAccountDd']//a[text()='Register']
+    Enter Value     //input[@id='firstName']      Neetu1234
+    Enter Value      //input[@id='lastName']       Pal1234
+    ${email} =      Generate Random String  10
+    ${emailText}   Set Variable    ${email}@hp.com
+    ${emailText} =	Convert To Lower Case   ${emailText}
+    Set Global Variable    ${emailText}
+    Enter Value  ${EmailID}   ${emailText}
+    Enter Value     //input[@id='password']   palne123@123
+    Enter Value     //input[@id='confirmPassword']     palne123@123
+    sleep   4s
+
+
+Verify the I'm not a robot button and Sign up
+     Select Frame    xpath://*[@id="root"]/div/div/div[1]/div[2]/div[2]/div/div/div[2]/div/form/div[6]/div/div/div/div/div/iframe
+     Current Frame should contain     I'm not a robot
+     Scroll To Element In View   xpath://div[@class='recaptcha-checkbox-checkmark']
+     sleep  2s
+     click element using javascript   xpath://div[@class='recaptcha-checkbox-checkmark']
+     #Select checkbox   xpath://div[@class='recaptcha-checkbox-checkmark']
+     Unselect Application Frame
+     Click On Element   xpath://*[@id="root"]/div/div/div[1]/div[2]/div[2]/div/div/div[2]/div/form/button
+     unselect frame
+     Scroll To Element In View    xpath://button[text()='SIGN UP']
+     #Click On Element   xpath://button[text()='SIGN UP']
+     Press Keys    xpath://button[text()='SIGN UP']    ENTER
+     sleep  10s
+
+Verify HPID registration page data
+     Wait Until Page Contains Element   ${FirstNameLabel}
+     Element Should Contain      ${FirstNameLabel}     Neetu1234
+     Element Should Contain       ${LastNameLabel}     Pal1234
+     Wait Until Page Contains Element      ${EmailIDTextbox}
+     Element Should Contain       ${EmailIDTextbox}     ${emailText}
+     Log to Console   "First Name, Last Name, Email address fields are auto populated from HPID registration page"
+
+
+Click on COMPLETE
+     [Arguments]    ${complete}
+     Click On Element       ${complete}
+
+
+Verify Update personal details
+     [Arguments]     ${update_pers}     ${pesr_loc}
+     Click On Element        ${update_pers}
+     Verify Element Exists      ${pesr_loc}
+
+Verify & Update Personal Details
+     Enter Value     //input[@class='firstnameinput']     Neeta
+     Enter Value    //input[@class='lastnameinput']      Singh
+     Enter Value    //input[@class='address1input']        Rahat Nagar, Raghavendra Mandir Rd
+     Enter Value     //input[@id='phonenumberinput1']       723
+     Enter Value     //input[@id='phonenumberinput2']       755
+     Enter Value     //input[@id='phonenumberinput3']       746
+     Enter Value     //input[@id='phoneextinput']           91
+     Enter Value     //input[@id='phoneextinput']           91
+     Enter Value     //input[@id='cityinput']           Los angeles
+     Click On Element    //div[@class='custom dropdown']//a[@class='current']
+     Click On Element    //div[@class='large-6 small-12 column state']//ul//li[9]
+     Enter Value        //input[@id='zipcodeinput']        90021
+     Click On Element    //a[@id='updateBillingButton']
+     Log To Console       Billing address updated successfully
+
+Verify Logout under Welcome
+     [Arguments]      ${wel_user}     ${log_out}
+     Click On Element     ${wel_user}
+     Click On Element      ${log_out}
+     Log To Console      User should be logged out and Homepage should be displayed
+
+Verify Sign In Page
+    Click Element   //a[contains(text(),'Sign in/Register')]
+    Click On Element    (//ul[@class='lastBox topmenuchild myAccountDd']/li/a)[1]
+    Verify Element Exists  //h6[contains(text(),'Sign in with your HP account')]
+
+Enter Email Id
+     Enter Value      ${username}     ${emailText}
+     Click On Element      //button[@id='next_button']
+
+Verify Password and sign in functionality
+     Enter Value     //input[@id='password']     palne123@123
+     Click On Element      ${fin_signin}
+
+
+####################################Validate registering Private store user and Edit###############
+Verify My address book
+    Click On Element      (//a[@id='WC_MyAccountSidebarDisplayf_links_2'])[2]
+    Verify Element Exists    //div[@class='topsection']/h2
+
+Verify new shipping address
+    Click On Element     //div[@class='large-12 columns nosidepaddings text-right btnBlock']/a
+    Verify Element Exists     //h2[@class='hide-for-small']
+
+Verify & add new shipping address
+    Enter Value     //input[@id='nicknameinput']     munnnika
+    Enter Value      //input[@id='firstnameinput']     neetu
+    Enter Value      //input[@id='lastnameinput']     pal
+    Click On Element      //a[@class='addrManual']
+    Enter Value         //input[@id='address1input']   jamunanagar
+    Enter Value        //input[@id='cityinput']       Los angeles
+    Enter Value        //input[@id='stateinput']    CA
+    Enter Value        //input[@id='zipcodeinput']    90021
+    Scroll Element Into View     ${enter_no}
+    Enter Value         ${enter_no}   7653458769627283
+    Sleep   2
+    Click On Element       //a[@class='btn redbtn']
+    Log to console      The new address has been successfully added to the address book
+
+Verify My default functionality
+    Click On Element    //a[@class='makedefaultlink']
+
+Verify Alert Box
+    Handle Alert       ACCEPT
+
+
 
 
 

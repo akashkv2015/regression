@@ -41,12 +41,12 @@ SetupSuite
 
 *** Test Cases ***
 #####################################       Test Cases for MLP Page        ####################################
-Verify MLP Page Features
+VVerify MLP Page Features
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${mlp_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application     ${mlp_url}
+
     #Capture Page Screenshot
 
 #    run keyword if      '${tech}'=='WEB'    run keywords
@@ -113,4 +113,3 @@ Verify MLP Page Features
     Go To   ${mlp_url}
     #Step 11: Click on ""View all"" / 'View Details'
     Click On View Detail and Verify MDP Page   ${viewdetail_locator}  ${mdplocator}
-

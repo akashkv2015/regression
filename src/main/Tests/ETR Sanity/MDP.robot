@@ -35,7 +35,7 @@ SetupSuite
     ...     ELSE       import Variables     ${MDPPOFiles}/MDPWeb.py
 
 *** Test Cases ***
-#####################################       Test Cases for Home Page        ####################################
+####################################       Test Cases for Home Page        ####################################
 Verify Options From MDP Page
     [Tags]  WEB     MOBILE
     [Documentation]     Validate 'Add to cart' & 'Customize & buy' options from MDP
@@ -68,8 +68,9 @@ Verify Options From MDP Page
 ######################################       Test Cases for Validate MDP Features        ####################################
 TC_Validate_MDP_features
 #1. Browse for an MDP page
-    Launch ETR Application  ${mdp_Fea_url}
-    Click On Element    ${iAcceptBtn}
+    #Launch ETR Application  ${mdp_Fea_url}
+    Launch ETR Application  ${mdp_Uat_Fea_url}
+    #Click On Element    ${iAcceptBtn}
     capture page screenshot     ${CURDIR}${/}/AllScreenCaptures/MDPPage.png
     Log to Console     "MDP Page is Displayed and Screenshot is Captured"
 
@@ -85,7 +86,7 @@ TC_Validate_MDP_features
 #5. Verify Product details displayed
     Validate Product Details      ${ProductDetails}
     Login to Private application    ${SignIn}
-    Go To   ${mdp_buy_url}
+    Go To   ${mdp_Uat_buy_url}
 
 #6. Verify for the "Registered & TM" symbols in the Key selling points
     Verify Registered & TM" symbols  ${RegisteredSymbol}
@@ -101,19 +102,20 @@ TC_Validate_MDP_features
 
     Click Element  ${TechSpecClose}
     Log to Console  "Pop up is closed"
+    Sleep  5
 
 #9. Verify 'See all offers' when user hover on it
-    Verify See All Offers   ${SeeAllOffers}
+#    Verify See All Offers   ${SeeAllOffers}
 
 #10. Mouse hover on â€˜Earn 3% in HP Rewards with purchaseâ€™ & verify the loyalty message in the pop up
-    Verify ToolTip Content   ${HpPurchaseRewards}
+   # Verify ToolTip Content   ${HpPurchaseRewards}
 
-################################# Validate Compare option in MDP  #######################################
+################################## Validate Compare option in MDP  #######################################
 
 TC_Validate_Compare_Option_in_MDP
 #1. Browse for an MDP page
-    Launch ETR Application  ${mdp_Fea_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${mdp_Uat_Compare_url}
+    #Click On Element    ${iAcceptBtn}
     capture page screenshot     ${CURDIR}${/}/AllScreenCaptures/MDPCompare.png
     Log to Console     "MDP Page is Displayed and Screenshot is Captured"
 
@@ -134,7 +136,6 @@ TC_Validate_Compare_Option_in_MDP
 
 #7. Click on 'Clear all'
     Verify ClearAll_MDPCompareWindow     ${ClearAllCompareWindow}
-
     sleep   2
 
 #PRIVATE STORE EXCLUSIVE PRICE label for applicable products  (Step 5 Continuation)

@@ -42,17 +42,13 @@ SetupSuite
     ...     ELSE       import Variables     ${UserManagementPOFiles}/UserManagementWeb.py
 
 *** Test Cases ***
-#####################################       Test Cases for My orders        ####################################
+###################################       Test Cases for My orders        ####################################
 Verify My orders
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
-    #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+
+    Launch ETR Application  ${Uat_url}
+
 
     #2. Click on 'Sign in' under 'Sign in/Register' dropdown on top
     #3. Enter Email ID of registered user and click on NEXT
@@ -94,11 +90,12 @@ Verify My orders
     #15. verify the search result text displayed when search result give zero value
     Verify the Search Result with zero value      ${zero_text}
 
+
 #####################################      Verify 'My Quotes' (  User Management  )     ####################################
 TC_Verify_My_Quotes
 #1. Browse for Storefront URL
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${uat_url}
+    #Click On Element    ${iAcceptBtn}
     Log To Console      "Storefront homepage is displayed"
 
 #2. Sign in with valid "SMB Private user" credentials and Click on My Account link Click on 'Sign in' under 'Sign in/Register' dropdown on top
@@ -123,3 +120,110 @@ TC_Verify_My_Quotes
 
 #10. Verify 'Quote Details' section
     Verify QuoteDetailsSection    ${ProdImgQuoteDetails}
+
+
+
+#################################Validate registering GS user and Edit#########################################
+Validate registering GS user and Edit
+    Launch ETR Application       ${Uat_url}
+
+    #2. Enter the First Name, Last Name, Email address, Create password & Confirm password
+    Login to GS user application     ${check_robot}
+
+    #3.Check the I'm not a robot button and click on 'SIGN UP'
+    Verify the I'm not a robot button and Sign up
+
+    #Verify First Name, Last Name, Email address fields are auto populated with the data given in HPID registration page
+    Verify HPID registration page data
+
+    # Click on COMPLETE
+    Click on COMPLETE       ${completed}
+
+    #Click on 'Update personal details' link
+    Verify Update personal details    ${update_personal}   ${personal_loc}
+    #Update First name, Last name, Address, Phone number, City, State, Zip code and click on Update in 'Change Billing Address' section
+    Verify & Update Personal Details
+    #9 Click on Logout under Welcome, <username> on top
+    Verify Logout under Welcome     ${welcome_user}    ${logout}
+    # 10 Click on 'Sign in' under 'Sign in/Register' dropdown on top
+    Verify Sign In Page
+
+    #11 Enter Email ID registered above and click on NEXT
+    Enter Email Id
+
+    #Enter Password used above while registering and click on 'SIGN IN'
+    Verify Password and sign in functionality
+
+
+###################################Validate registering Private store user and Edit###############
+Validate registering Private store user and Edit
+
+     Launch ETR Application       ${Uat_url}
+     # Enter the First Name, Last Name, Email address, Create password & Confirm password
+     Login to GS user application     ${check_robot}
+     #Check the I'm not a robot button and click on 'SIGN UP'
+     Verify the I'm not a robot button and Sign up
+     #Verify First Name, Last Name, Email address fields are auto populated with the data given in HPID registration page
+     Verify HPID registration page data
+      # Click on COMPLETE
+     Click on COMPLETE       ${completed}
+     #Click on 'My address book' link
+     Verify My address book
+     # Click on 'Add new shipping address'
+     Verify new shipping address
+     #Enter 'Address nick name', 'First name', 'Last name', Address, Phone number, City, State, ZIP Code and click on 'Submit Shipping address'
+     Verify & add new shipping address
+     #Click on 'Make default' for the address
+     Verify My default functionality
+     #Click on Ok
+     Verify Alert Box
+     #Click on Logout under Welcome, <username> on top
+     Verify Logout under Welcome      ${welcome_user}    ${logout}
+     #Click on 'Sign in' under 'Sign in/Register' dropdown on top
+     Verify Sign In Page
+     # Enter Email ID registered above and click on NEXT
+     Enter Email Id
+     #Enter Password used above while registering and click on 'SIGN IN'
+     Verify Password and sign in functionality
+
+########################    Validate registering SMB Public user and Edit #############################
+TC_Validate_Registering_SMB_PublicUserandEdit
+#1. Launch the Store url and click on Register from 'Sign in/Register' dropdown
+    Launch ETR Application  ${uat_url}
+    Log To Console      "Storefront homepage is displayed"
+    Wait until Element is Visible   ${SignIn}
+    Click Element   ${SignIn}
+    Click Element   ${Register_Dropdown}
+
+#2. Enter the First Name, Last Name, Email address, Create password & Confirm password
+#3. Check the I'm not a robot button and click on 'SIGN UP'
+    Enter Registration Page Details   ${FirstName}
+
+#4.Verify First Name, Last Name, Email address fields are auto populated with the data given in HPID registration page
+    Verify Registration Page      ${FirstNameLabel}
+
+#5. Enter valid company name in 'Company name' field
+    Enter Value   ${CompanyNameInput}     ${CompanyNameText}
+    Log to Console  "'Company name' is entered"
+
+#6. Click on 'COMPLETE' button
+    Verify Complete Button     ${CompleteButton}
+
+#7. Click on 'Update Personal details' link
+    Click On Element    ${UpdatePersonalDetails}
+    Log to Console   "Update Button Clicked successfully"
+
+#8. Enter new email address, confirm new email address and then click 'Update' under 'Change Email' section
+    Verify New Email Address    ${NewEmailId}
+
+#9. Click on Logout under Welcome, <username> on top
+    Verify Logout   ${LogoutDropdown}
+
+#10. Click on 'Sign in' under 'Sign in/Register' dropdown on top
+#11. Enter Email ID registered above and click on NEXT
+#12. Enter Password used above while registering and click on 'SIGN IN'
+    New Registered User Login    ${SignIn}
+
+
+
+

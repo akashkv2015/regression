@@ -10,7 +10,8 @@ mdplocator = "//html"
 grid_modelname = "//a[contains(text(),'HP ProBook 640')]"
 grid_modelimage = "//img[@class=' lazyloaded']"
 view_Keysellingpoint = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[2]/div[3]"
-View_all_productlink = "//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=vao']"
+# View_all_productlink = "//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=vao']"
+View_all_productlink = "(//p[@class='groupviewallarea']//a)[1]"
 View_rating_review = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[2]/div[2]"
 grid_Symbols = "//*[@id='modelBox_243575']/div[2]/div[2]/div[3]/ul[1]/li[2]"
 list_view = "//a[@id='listView']"
@@ -18,20 +19,26 @@ list_symbols = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1
 Price_displayed = "//div[@id='price_holder_model_243575']"
 ###
 list_modelname = "(//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=features'])[2]"
+list_modelname = "(//span[@class='ellip']//a)[1]"
+
 list_modelimage = "//img[@class=' lazyloaded']"
 view_Keysellingpoint_list = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[2]/div[3]"
-View_all_productlink_list = "//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=vao']"
+# View_all_productlink_list = "//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=vao']"
+View_all_productlink_list = "(//p[@class='groupviewallarea']//a)[1]"
 list_rating_review = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[2]/div[2]"
 loyalty_rewards_list = "(//span)[33]"
 Price_displayed_list = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[5]/div[1]/span[2]"
 list_displayedprice = "//body/div[@id='content']/div[@id='model-plp-body']/div[2]/div[1]/div[2]/div[5]/div[1]/span[1]"
-viewdetail_listlocator = "(//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=features'])[3]"
+# viewdetail_listlocator = "(//a[@href='/us/en/mdp/Laptops/probook-600-14-243575--1#tab=features'])[3]"
+viewdetail_listlocator = "(//a[@class='fullwidthbtn'])[1]"
 ###PRIVATE STORE EXCLUSIVE PRICE
-Private_ExclText = "(//span[@id='price_tier'])[1]"
+Private_ExclText = "//body/div[@id='content']/div[@id='featured_products_target']/div[@id='featuredProducts']/div[2]/div[2]/div[1]/div[1]"
 signin_private = "//body/div[@id='utilityNav']/div[1]/nav[1]/section[1]/ul[1]/li[5]/ul[1]/li[1]/a[1]"
-User_Id = "Automation_EPPLive@hp.com"
-User_password = "Auto@123"
-Private_Store_Actual = "PRIVATE STORE EXCLUSIVE PRICE"
+#User_Id = "Automation_EPPLive@hp.com"
+User_Id = "testeppautomation9@yopmail.com"
+#User_password = "Auto@123"
+User_password = "passw0rd@123"
+Private_Store_Actual = '''Private Store Exclusive SKU'''
 
 
 

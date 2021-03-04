@@ -46,13 +46,14 @@ Verify CLP Page Features
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
     #log to console      ${name}
     Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
     #Step 1a: Click on submenu
-    Click On Menu Submenu   ${shop_menu_locator}    ${submenu_laptop_locater}
+     Click On Menu Submenu   ${shop_menu_locator}    ${submenu_laptop_locater}
+     Click On Element    ${iAcceptBtn}
 
     #Step 2: Verify Red Banner is being displayed
     Verify Banner    ${img_red_banner}  "Red"
@@ -84,22 +85,23 @@ Verify CLP Page Features
     Verify Element Exists   ${locator_corosel_next}
 
     #Step 11: Validate the products under bottom Espot
-    Validate the products under bottom Espot    ${espot_section}
+    Validate the products under bottom Espot    ${espot_section1}
 
 Verify CLP Link
     [Tags]  WEB     MOBILE
     #    "1. Launch storefront URL
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
     Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
 
     #    2. Go to Desktops CLP page by clicking on Desktops under header Shop-->Shop PCs
     Click On Menu Submenu   ${shop_menu_locator}    ${submenu_desktop_locator}
     Capture Page Screenshot
+    Click On Element    ${iAcceptBtn}
 
     #    3. Validate 'Shop' link of first CLP Hero banner
     Validate Shop link in banner      ${hero_banner_1}
@@ -168,10 +170,10 @@ Verify CLP Link
     sleep   2
 
     #    19. Click on the first 'Shop' link under bottom eSpot
-    Validate Shop link in banner    (${espot_section})[1]//a[text()="SHOP"]
+    Validate Shop link in banner    ${espot_section}
 
     #    20. Navigate back to the CLP Page
     Go Back
     #    21. Repeat step 19-20 for other 'Shop' link under bottom eSpot
-    Validate Shop link in banner    (${espot_section})[2]//a[text()="SHOP"]
+    Validate Shop link in banner    ${espot_section}
     Go Back

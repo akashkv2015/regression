@@ -50,17 +50,13 @@ SetupSuite
     ...     ELSE       import Variables     ${PDPPOFiles}/PDPWeb.py
 
 *** Test Cases ***
-#####################################       Test Cases for PDP Page        ####################################
+#####################################       Verify for PGC & VGC products & Balance check        ####################################
 Verify PDP Page Features
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
-    #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+
+    Launch ETR Application  ${Uat_url}
+
     #Step 2: Type keyword "Gift cards" in search bar & click on the search icon
     Verify SRP with Gift Card   ${Input_giftcard}   ${Giftcard_input}   ${Clickicon_gift}
     #3. Click on "Check your balance" link on right top of the SRP
@@ -70,7 +66,8 @@ Verify PDP Page Features
     Verify Element Exists     ${balance}
     Verify Element Exists      ${avail_bal}
     #5. Close the 'Gift card balance' popup by clicking X
-    Verify Gift Card Balance Pop Up is Closed   ${close_popup}  ${balance_SRP}
+    Verify Gift Card Balance Pop Up is Closed      ${close_popup}
+
     #6. Click on "CUSTOMIZE & BUY" for any 'Physical gift card'
     Verify Amount Dropdown under Customize and Buy for physical gift card    ${Click_Buy}  ${Amount_dropdown_customize}
     #From & To text fields
@@ -78,11 +75,11 @@ Verify PDP Page Features
     #Add a personalized message' link
     Verify Add a personalized message link  ${personalized_msg_link}
     #'Add to Cart' button
-    Verify Add to Cart button   ${add_to_cart}
+    Verify Add to Cart button   ${added_to_cart}
     #Price with $
     Verify Price under Physical gift card     ${price_locator}
     #7. Select an amount in the drop down
-    Verify Amount is selected in the dropdown   ${select_amount}
+    Verify Amount is selected in the dropdown   ${amount}
     #8. Enter 'Your name' in From field
     Verify Your Name Field   ${name_locator}
     # 9. Enter 'Recipient's name' in To field
@@ -94,9 +91,9 @@ Verify PDP Page Features
     #12. Click on 'Special Offers' tab
     Verify Special Offers of the Gift Card   ${Special_offer}  ${About_specialoffer}
     #13. Click on "Add to cart"
-    Verify Add To Cart by adding Gift Card   ${add_gift_carditem}   ${added_cartlocator}
+    Verify Add To Cart by adding Gift Card   ${add_gift_carditem}
     #14. Browse for an 'Virtual gift card'
-    Go TO  ${pdp_url}
+    Go TO  ${pdp_uat_url}
     #Virtual gift card PDP should be displayed with below details
     #Amount dropdown
     Verify Amount Dropdown for Virtual gift card   ${virtual_giftcard_dropdown}
@@ -130,11 +127,10 @@ Verify PDP Page Features
     Verify Add To Cart by adding Virtual Gift Card  ${Click_to_add}  ${item_added}
 
 
-#################### Verify STO PDP ####################################################################################
+#################### Validate STO PDP & Add to cart ####################################################################################
 Verify STO PDP
     [Tags]  WEB     MOBILE
     Launch ETR Application  ${pdp_url1}
-    Click On Element    ${iAcceptBtn}
 
     Capture Page Screenshot
 
@@ -157,7 +153,7 @@ Verify STO PDP
     #Price shown with $ superscript
     Verify Price superscript for STO   ${Sto_price}
     #Loyalty message "Earn XXX HP Reward points"
-    Verify Loyalty Message For STO Product  ${Sto_reward}
+#    Verify Loyalty Message For STO Product  ${Sto_reward}
     #'Add to Cart' button
     Verify Add To Cart For STO Product   ${Sto_add_cart}
     #3. Verify for the "Registered & TM" symbols in the Key selling points
@@ -167,10 +163,10 @@ Verify STO PDP
     #5. Click on "Add to cart"
     Verify Add To Cart For STO PDP Product  ${STO_Add_product}   ${STO_product}
     #6. Click on the Features tab
-    Verify Features Tab For STO PDP Product    ${Sto_feature}  ${Sto_superscript}
+    Verify Features Tab For STO PDP Product    ${Sto_feature}
     Verify Element Exists  ${avail_sto_features}
 #    #7. Verify 'You might also be interested in..." section
-    Verify You might also be interested in section   ${interested_prod}   ${int_price}  ${Sto_viewlink}
+#    Verify You might also be interested in section   ${interested_prod}   ${int_price}  ${Sto_viewlink}
     #8. Click on the Specs tab
     Verify Specs Tab For STO PDP   ${sto_spec}   ${prod_specification}
     ${handle} =    Switch Window   Current
@@ -186,23 +182,23 @@ Verify STO PDP
     #9. Click on the Accessories tab
 #    Go To   ${pdp_url1}
 #    sleep   5
-    Verify Accessories Tab     ${Accessory_tab}      ${browse_accessories}
+#    Verify Accessories Tab     ${Accessory_tab}      ${browse_accessories}
     # 10. Click on "Add to cart" for an product under accessories
-    Verify Add To Cart for an product under accessories   ${add_access_prod}   ${aaccess_item_locator}
+#    Verify Add To Cart for an product under accessories   ${add_access_prod}   ${aaccess_item_locator}
     #11. Click on 'Add to Cart' for any Browse Accessories product
     #Verify Add to Cart for any Browse Accessories product   ${Sto_browse_add}   ${Sto_browse_cart}
     #12. Click on "Special offers" tab
     Verify Special offers tab for STO PDP    ${Sto_special_offer}  ${offer_list}
     #13. Click on Support tab
-    Verify Support tab for STO PDP    ${Sto_support}    ${Sto_support_hp}
+#    Verify Support tab for STO PDP    ${Sto_support}    ${Sto_support_hp}
     #14. Click on Reviews tab
     Verify Reviews tab For STO PDP     ${Reviews_stoTab}  ${views_Review}
 
 ############Validate ESD PDP ###################################################################################
 Verify ESD PDP
     [Tags]  WEB     MOBILE
-    Launch ETR Application  ${pdp_esd_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application      https://store-uat1live-us.corp.hpicloud.net/us/en/pdp/corel-paintshop-pro-vx9---license---1-user?etr_pdp=true
+#    Click On Element    ${iAcceptBtn}
 
     Capture Page Screenshot
     #2. Verify the Product details
@@ -223,13 +219,14 @@ Verify ESD PDP
     #'Digital Download' link
     Verify Digital Download link     ${digital_link}
     #3. Click on "Digital Download"
-    Validate Digital Download       ${digital_link}    ${esd_faq}
+#    Validate Digital Download       ${digital_link}    ${esd_faq}
     #4. Click on the Features tab
     Verify Features Tab For ESD      ${esd_features}
-    sleep  2
+
     Verify Element Exists       ${return_feature}
     #5. Click on the Specs tab
     Verify Spec Tab For ESD     ${esd_spec}
+    Sleep   2
     Verify Element Exists    ${spec_feature}
     #6. Click on "Special offers" tab
     #7. Click on Reviews tab
@@ -241,11 +238,11 @@ Verify ESD PDP
     Verify Element Exists     ${esd_prod_added}
 
 
-#########Validate Bundle PDP#######
+########Validate Bundle PDP#######
 Verify Bundle PDP
     [Tags]  WEB     MOBILE
-    Launch ETR Application  ${pdp_bundle_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  https://store-uat1live-us.corp.hpicloud.net/us/en/pdp/hp-950xl-951-high-yield-black-and-standard-color-ink-cartridge-bundle-950xl-black-951-standard-color-kit?etr_pdp=true%22
+
 
     Capture Page Screenshot
 
@@ -292,12 +289,8 @@ Verify for eCarepack product and Add to cart feature
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+    Launch ETR Application  ${Uat_url}
+
     #    2. Enter a eCarepack SKU ID in search bar & click on the search icon
     #    Ex: U7897E, UE373E
     Search SKU      ${eCarepack_product_item}   ${locator_searchbox}
@@ -325,4 +318,5 @@ Verify for eCarepack product and Add to cart feature
 
     #    9. Select the hardware listed in the window and click on CONTINUE
     Select Hardware and Verify      ${locator_hw}   //a[@id='continueBtn']
+
 

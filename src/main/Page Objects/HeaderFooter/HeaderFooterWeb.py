@@ -22,19 +22,23 @@ locator_company='//input[@id="sCN"]'
 locator_header_list="//div[@id='utilityNav']//li"
 locator_footer_list="//div[@id='footer']//li[@class='first_li']"
 
-locator_addtocart_btn="//button[text()='Add to cart']"
+# locator_addtocart_btn="//button[text()='Add to cart']"
+locator_addtocart_btn="(//a[@role='button' and contains(text(),'Add to cart')])[1]"
 
-locator_stoproduct_title="//div[@class='product-detail']/h1"
-
-miniCartIcon="//button[@aria-label='Shopping Cart']"
-miniCartTitle="//div[@class='minicart_title']/h3"
-locator_miniCartViewAll="//div[@class='minicart_title']/a[text()='View all items >']"
+# locator_stoproduct_title="//div[@class='product-detail']/h1"
+locator_stoproduct_title="//div[@class='headBlock']//h1"
+# miniCartIcon="//button[@aria-label='Shopping Cart']"
+miniCartIcon="//a[@id='shop_widget']"
+# miniCartTitle="//div[@class='minicart_title']/h3"
+miniCartTitle="//div[@class='minicarttitle']//h3"
+# locator_miniCartViewAll="//div[@class='minicart_title']/a[text()='View all items >']"
+locator_miniCartViewAll="//div[@class='minicarttitle']//a[text()='View all items >']"
 minicartProduct="//div[@class='mcprodcont']"
 
-locator_checkoutasguest_btn="//div[@class='guestcheckout']/a"
+locator_checkoutasguest_btn= "//div[@class='guestcheckout']/a"
 
 locator_hplogo="//div[@class='wpr-logo-headers unselectable  ']"
 nameee="Subahsh"
 
-
+# creditDebitTabLocator = "//span[@class='withText']"
 

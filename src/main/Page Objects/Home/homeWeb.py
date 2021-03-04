@@ -8,7 +8,10 @@ shopping_ass_link='//*[@id="productFinder"]/div[1]/div/div[1]/div/div[2]/a'
 shop_banner_link = '//a[@class="nHeroBannerCta cta1"]'
 
 shop_banner_links='//*[@id="hero_responsive"]/div/ul/li//a'
-shopping_link='//*[@id="productFinder"]/div[1]/div/div[2]/div[1]/a'
+#shopping_link='//*[@id="productFinder"]/div[1]/div/div[2]/div[1]/a'
+#new change
+shopping_link='//*[@id="productFinder"]/div[1]/div/div[1]/a'
+
 top_seller_link='//div[@class="bsoCTAWRap"]/a'
 banner_espot_link='//*[@id="content"]/div[13]/div/div/div[1]/div/div[3]/a'
 sto_home_product='//div[@class="inventory_holder"]//a[@class="btn bluebtn text-center add2cart-btn"]'

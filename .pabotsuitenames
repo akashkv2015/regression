@@ -1,0 +1,32 @@
+datasources:822600992073c14cc22148367792180a2ec7443b
+commandlineoptions:65f95c924ba97541f47949701c4e3c51192a5b43
+suitesfrom:no-suites-from-option
+file:b4576aa4534caf06347c23293ac695c5dae1c48f
+--test ETR Sanity.CLP.Verify CLP Page Features
+--test ETR Sanity.CLP.Verify CLP Link
+--test ETR Sanity.CTO.Verify CTO and add to cart
+--test ETR Sanity.CTO.Validate CTO Configurator page, Attach accessories page
+--test ETR Sanity.Checkout.Guest user checkout with PayPal
+--test ETR Sanity.ETR Home.Verify Home Page Features
+--test ETR Sanity.ETR Home.Validate Home Page links And Cart to Cart from Top Seller
+--test ETR Sanity.HeaderFooter.Verify Header Footer links in Homepage Checkout and PGS pages
+--test ETR Sanity.HeaderFooter.Verify Header Footer links in Homepage Checkout and PGS pages Private User
+--test ETR Sanity.MDP.Verify Options From MDP Page
+--test ETR Sanity.MDP.TC_Validate_MDP_features
+--test ETR Sanity.MDP.TC_Validate_Compare_Option_in_MDP
+--test ETR Sanity.MLP.Verify MLP Page Features
+--test ETR Sanity.PDP.Verify PDP Page Features
+--test ETR Sanity.PDP.Verify STO PDP
+--test ETR Sanity.PDP.Verify ESD PDP
+--test ETR Sanity.PDP.Verify Bundle PDP
+--test ETR Sanity.PDP.Verify for eCarepack product and Add to cart feature
+--test ETR Sanity.PLP.TC_Validate_ViewAllPage_Sorting
+--test ETR Sanity.PLP.TC_Validate_Compare_option_in_ViewALLpage
+--test ETR Sanity.PLP.TC3_Validate_STO_AddtoCart_&_CTO_Customize&buy_from_PLP
+--test ETR Sanity.PLP.TC4_Verify_FacetsandFilters_ViewAllPage
+--test ETR Sanity.Search.Verify SKU And Keyword Search
+--test ETR Sanity.Search.Validate Facets and filters Search
+--test ETR Sanity.Search.Validate Compare option in Search Results Page
+--test ETR Sanity.Search.TC_Validate_SearchResultPage_Sorting
+--test ETR Sanity.UserManagement.Verify My orders
+--test ETR Sanity.UserManagement.TC_Verify_My_Quotes

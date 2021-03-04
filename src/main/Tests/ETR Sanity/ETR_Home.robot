@@ -48,11 +48,11 @@ Verify Home Page Features
    # Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
     Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
     #Step 2: Verify Red Banner is being displayed
     Verify Element Exists   ${img_red_banner}
     sleep   2s
@@ -70,8 +70,8 @@ Verify Home Page Features
     click on element    ${feedbackForm_CloseBtn}
     Unselect Application Frame
 
-    Sleep   5s
-    #Step 7: Verify Shopping Assistant is visible on the screen
+#    Sleep   5s
+#    #Step 7: Verify Shopping Assistant is visible on the screen
     Verify Element Exists       ${lbl_shoppingAssistant}
     #Step 8: Verify Featured products section is being displayed with more than 1 section
     Verify Featured Products Section alog with Product Counts   ${featuredProducts}     ${featuredProductsSection}
@@ -97,11 +97,11 @@ Verify Home Page Features
 Validate Home Page links And Cart to Cart from Top Seller
     [Tags]  WEB     MOBILE
     Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
     #Step 2: Click on the Shop link of Hero Banner
 #     Wait Until Element Is Visible    ${shop_banner_links}   20
 #     Click Link    ${shop_banner_links}

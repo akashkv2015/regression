@@ -24,10 +24,13 @@ TMSymbol = "//span[contains(@title, '™')]"
 LoyaltyTxt = """3% back in HP Rewards
 HP Rewards is a loyalty program where users earn HP Rewards points by buying eligible HP Products.
 Learn more"""
-###Private_Exclusive_Price Text
-Pvt_Exclusive_Price = "//span[@id='price_tier']"
-###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
-Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+# ###Private_Exclusive_Price Text
+# Pvt_Exclusive_Price = "//span[@id='price_tier']"
+# ###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
+# Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+Pvt_Exclusive_Price = "//div[@class='topReview']//div[@class='promotion-text']"
+Private_Store_Expected = "Private Store Exclusive SKU"
+
 ###User SignIn Option
 SignIn = "//a[contains(text(),'Sign in/Register')]"
 SignIn_DropDown = "(//li//a[text()='Sign in'])[1]"
@@ -44,7 +47,7 @@ BreadCrumb = "//div[@class='breadcrumb-container']"
 ### Features Tab
 FeaturesTabSection = "//body[@class='left-to-right']"
 ### See All Offers
-SeeAllOffers = "(//label[contains(text(),'See all offers')])[position()=1]"
+SeeAllOffers = "(//label[contains(text(),'See all offers')])[4]"
 ### See All Offers ToolTip
 SeeAllOffersToolTip = "//span[@class='tooltipContent']"
 ### Tech Spec Link
@@ -92,6 +95,8 @@ UnitProductSection = "//div[@class='productCard']"
 ##Compare Links
 FirstCompareLink = "(//div[@class='inv_compare ']//span[@title='Click to compare'])[1]"
 SecondCompareLink = "(//div[@class='inv_compare ']//span[@title='Click to compare'])[2]"
+ProductImgtoscroll = "(//a[@class='productImg'])[4]"
+
 ###MDP Product Compare Window Section
 MDPCompareSection = "//div[@class='productCompare']"
 ### Upward arrow toggle button of Compare Window Section

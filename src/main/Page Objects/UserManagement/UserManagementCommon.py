@@ -1,6 +1,9 @@
 ###for sign in home page
-user_data = "gerpjhon123@gmail.com"
-user_Password = "Password@123"
+# user_data = "gerpjhon123@gmail.com"
+user_data = "testeppautomation9@yopmail.com"
+# user_Password = "Password@123"
+user_Password = "passw0rd@123"
+
 
 ####sign oder page
 click_sign_in = "//a[contains(text(),'Sign in/Register')]"
@@ -9,10 +12,10 @@ enter_user = "//input[@id='username'] "
 Clk_nex = "//button[@id='next_button']"
 clk_next = "//button[@id='']"
 enter_pass = "//input[@id='password']"
-Welcome_txt_expected = '''Welcome, GERP EUA'''
+Welcome_txt_expected = '''Welcome, testepp'''
 Welcome_txt_Actual = "//li[@class='lastIteminList hasdropdown']"
 clk_My_orders = "//a[contains(text(), 'My orders')]"
-your_orderpage = "//div[@class='topsection']"
+your_orderpage = "//h1[@class='myAccountCommonTitle']"
 search_bar = "//div[@class='Rectangle-426 ']"
 total_order = "//div[@class='orderFound']"
 placeholder_text = "Search hp.com"
@@ -29,3 +32,26 @@ load_more = "//div[@class='loadMorePages']/label"
 Clear_search_link = "(//span[@class='clear-search']//a)[2]"
 zero_text = "H353008361"
 Zerovalue_result = "0 results"
+
+
+
+###############Validate registering GS user and Edit   #####################
+check_robot = "//span[@id='recaptcha-anchor']/div[1]"
+sign_up ="//button[@class='vn-button vn-button--critical vn-button--expanded']"
+mailid = "sjdshkgdhksgd.jgdh@hp.com"
+completed = "//a[@class='orgBtn']"
+update_personal = "//a[contains(text(),'Update personal details')]"
+personal_loc = "//div[@class='topsection']//h2"
+welcome_user = "//li[@class='lastIteminList hasdropdown']/a"
+logout = "(//ul[@class='lastBox topmenuchild myAccountDd']/li/a)[1]"
+# EmailID = "//input[@id='email']"
+# username = "//input[@id='username']"
+# FirstNameLabel = "(//div[@class='wrapper ne-inps'])[1]"
+# #LastNameLabel = "//label[@id='lastName_label']"
+# LastNameLabel = "(//div[@class='wrapper ne-inps'])[2]"
+# EmailIDTextbox = "(//div[@class='wrapper ne-inps'])[3]"
+# FirstNameInputn = "Neetu1234"
+# LastNameInputn = "Pal1234"
+fin_signin = "//button[@class='vn-button vn-button--critical vn-button--expanded']"
+welcomepage = "//a[@class='mainLink downDisclosure']"
+enter_no = "//input[@id='phonenumberinput']"

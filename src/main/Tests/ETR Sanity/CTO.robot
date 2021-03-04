@@ -39,12 +39,12 @@ SetupSuite
     ...     ELSE       import Variables     ${CTOPOFiles}/CTOWeb.py
 
 *** Test Cases ***
-#####################################       Validate CTO and add to cart        ####################################
+####################################       Validate CTO and add to cart        ####################################
 Verify CTO and add to cart
     [Tags]  WEB     MOBILE
     #1. Browse for an Color swatch CTO
     Launch ETR Application  ${pdp_url2}
-    Click On Element    ${iAcceptBtn}
+#    Click On Element    ${iAcceptBtn}
 #    run keyword if      '${tech}'=='WEB'    run keywords
 #    ...     Select Application Frame     ${frame_SSM}
 #    ...     AND     click on element    ${closeForm_SSM}
@@ -58,7 +58,9 @@ Verify CTO and add to cart
 #Product should be updated with the color selected for full images and thumbnail images
 
 #4. Click on the Features tab
-    click on tab and verify    //div[@class="tabs-container"]//li[@aria-label="Features"]    ${feature_tab_content}
+    #click on tab and verify    //div[@class="tabs-container"]//li[@aria-label="Features"]    ${feature_tab_content}
+    click on tab and verify    //*[@id="initFeatures"]    ${feature_tab_content}
+    sleep   2s
 #Expected Result:
 #- Product features should be displayed
 #- Superscript numbers if configured should appear, on mouse hover tool tip should be displayed
@@ -67,19 +69,33 @@ Verify CTO and add to cart
     Verify You might also be interested in      ${interestedSection}
 
 #6. Click on the Specs tab
-    click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Specs"]    //div[@class="pdp-specs"]
+    #click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Specs"]    //div[@class="pdp-specs"]
+    click on tab and verify        //*[@id="initSpecs"]     //*[@id="specsTab"]
+
 #Expected Result:
 #- Product specifications should be displayed
 #- Document(datasheet) link will be present if available, on click of document link should open document in new window
 #7. Verify Accessories tab
-    Verify Accessorie tab       //div[@class="tabs-container"]//li[@aria-label="Accessories"]
+  #  Verify Accessorie tab       //div[@class="tabs-container"]//li[@aria-label="Accessories"]
+    #change
+    Verify Accessorie tab       //*[@id="initAccessories"]
+
 #8. Click on Support tab
-    Verify Support tab          //div[@class="tabs-container"]//li[@aria-label="Support"]
+    #Verify Support tab          //div[@class="tabs-container"]//li[@aria-label="Support"]
+    #change
+    Verify Support tab          //*[@id="initServices"]
+
     #Recommended HP Care Packs should be displayed with ""Add to cart"" button and 'View Details"" link should be displayed
 #9. Click on ""Special offers"" tab
-    click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Special offers"]    //ul[@class="offers-list"]
+    #click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Special offers"]    //ul[@class="offers-list"]
+    #change
+    click on tab and verify        //*[@id="initOffers"]    //ul[@class='specialofferlist']
+
 #10. Click on Reviews tab
-    click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Reviews"]    //div[@id="BVRRContainer"]
+    #click on tab and verify        //div[@class="tabs-container"]//li[@aria-label="Reviews"]    //div[@id="BVRRContainer"]
+    #change
+    click on tab and verify        //*[@id="initReviews"]    //div[@id="BVRRContainer"]
+
 #11. Click on 'Customize & buy' button for the CTO
     Add CTO Product and verify Configurator Screen  ${cto_add_customize_btn}     ${configurator_add_to_cart_btn}
 
@@ -87,7 +103,7 @@ Validate CTO Configurator page, Attach accessories page
     [Tags]  WEB
     #1. Browse for an Color swatch CTO
     Launch ETR Application  ${conf_url}
-    Click On Element    ${iAcceptBtn}
+#    Click On Element    ${iAcceptBtn}
 #    run keyword if      '${tech}'=='WEB'    run keywords
 #    ...     Select Application Frame     ${frame_SSM}
 #    ...     AND     click on element    ${closeForm_SSM}
@@ -116,6 +132,8 @@ Validate CTO Configurator page, Attach accessories page
 
     #    6. Click on X in 'Compare recommended configurations' window
     Click On Element        ${locator_comparewindowclosebtn}
+    #scroll to element in view   //*[@id="label_span_HardDrive_HardDrive_2"]
+
     #    7. Select few components in configurator page which shows $0.00
     #    Expected Result:
     #    Component should be selected and component price should display 'Included in price' text
@@ -129,7 +147,8 @@ Validate CTO Configurator page, Attach accessories page
     #    Expected Result:
     #    Selected configuration/component should be shown under 'Specs' and price should be updated
     #    11. Click on 'ADD TO CART' button in Configurator page after updating configurations
-    Click On Element    ${locator_addtocart}
+
+   #commented  Click On Element    ${locator_addtocart}
     sleep   10
     Verify Element Text     //h2[@id='accTitle']    Accessories for your PC
 

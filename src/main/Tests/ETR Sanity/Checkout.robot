@@ -43,20 +43,21 @@ SetupSuite
 Guest user checkout with PayPal
     [Tags]  WEB     MOBILE
     #1. Launch the storefront URL
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+    Launch ETR Application  ${Uat_url}
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
 
     #2. Search for a 3PP SKU and add product to cart
     Search SKU and add to cart and verify      ${tpp_product_item}     ${locator_searchbox}
 
     #3. Search for an BTO product and add it to cart
-    Search SKU and add to cart and verify      ${bto_product_item}     ${locator_searchbox_pdp}
+    Search SKU and add to cart and verify      ${bto_product_items}     ${locator_searchbox_pdp}
     #4. Click on ""View Cart and Checkout"" in Mini cart
-    Click on View all items in mini cart
+    Verify View Cart and Checkout         ${mouseon_monicart}    ${Click_guest}
+#    Click on View all items in mini cart
     sleep   2s
     #5. Click on ""PayPal Checkout"" button
     Click On Element        ${locator_btn_paypalcheckout}
@@ -81,3 +82,45 @@ Guest user checkout with PayPal
     #Order Confirmation page should be displayed with the Order details
     #
     #Capture the screenshot which display Order data, Product details, Shipping, billing and Payment method details"
+
+########################## Verify Shipping Methods in Cart & Checkout pages ######################################
+Verify Shipping Methods in cart & Checkout
+    [Tags]  WEB     MOBILE
+    Launch ETR Application  ${Uat_url}
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
+
+    #2. Search for any STO Product
+    Verify Search STO Product     ${searched_vlue}
+
+    #3. Click on ADD TO CART button for STO product
+    Verify Add To Cart for Checkout STO Product   ${Sto_checkout}
+
+    #4. Click on ""View Cart and Checkout"" in Mini cart
+    Verify View Cart and Checkout         ${mouseon_monicart}    ${Click_guest}
+    sleep  2
+
+    #5. Verify details in Cart page
+    Verify details in Cart page
+
+    #6. Verify the Shipping methods displayed
+    Verify the shipping Method displayed    ${shipping_meth}
+
+    #10. Verify TOTAL & 'CART TOTAL' amount
+    Verify TOTAL & 'CART TOTAL' amount
+
+    #11. Click on 'Checkout as Guest' for Guest user
+    Verify Checkout as Guest       ${checkout_guest}     ${Secure_checkout}
+
+    #12. Enter 'Contact Information' and Shipping details
+    Verify Contact Information and Shipping details
+
+    #14. Verify the Shipping methods displayed
+    Verify the Shipping Method      ${shipping_met}
+
+    #17. Verify the Shipping Charge, Taxes, TOTAL
+    Verify the Shipping Charge, Taxes, Total       ${ship_charge}  ${taxes}    ${total}
+

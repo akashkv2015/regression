@@ -37,14 +37,12 @@ SetupSuite
     ...     ELSE       import Variables     ${MDPPOFiles}/MDPWeb.py
 
 *** Test Cases ***
-#####################################       Validate View All Page & sorting       ####################################
+####################################       Validate View All Page & sorting       ####################################
 TC_Validate_ViewAllPage_Sorting
 #1. Browse 'View ALL'/PLP URL
-    Launch ETR Application  ${plp_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${plp_uat_url}
+    #Click On Element    ${iAcceptBtn}
     capture page screenshot   ${CURDIR}${/}/AllScreenCaptures/PlPPage.png
-
-    Take screenshot
 
 #2. Verify ""Sort by:"" in PLP
 #3. Click on the Sort by dropdown & verify the options displayed
@@ -54,7 +52,7 @@ TC_Validate_ViewAllPage_Sorting
 
 #4. Select ""Lowest price"" from dropdown
     Select From List by Label   ${sortbyMenu}   Lowest price
-    sleep       1s
+    #sleep       1s
     List Selection Should Be    ${sortbyMenu}   Lowest price
     #Select From List By Value   name:orderBy  6
     #sleep   2s
@@ -65,17 +63,19 @@ TC_Validate_ViewAllPage_Sorting
     Ensure Product Details         ${ProductDetails}
     #sleep       1s
     Login to Private application        ${SignIn}
-    Go To   ${plp_url}
+    Go To   ${plp_uat_url}
 
 #6. Click on ""LOAD MORE"" at the bottom
+    Scroll Element Into View    ${LoadMoreButton}
+    Wait Until Element Is Visible  ${LoadMoreButton}
     Verify LoadMore Button    ${LoadMoreButton}
 
-#####################################  Validate Compare option in View ALL page       #################################
+#######################################  Validate Compare option in View ALL page       #################################
 TC_Validate_Compare_option_in_ViewALLpage
 
 #1. Browse 'View ALL'/PLP URL
-    Launch ETR Application  ${plp_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${plp_uat_url}
+    #Click On Element    ${iAcceptBtn}
     capture page screenshot   ${CURDIR}${/}/AllScreenCaptures/PLP2Page.png
 
 #2. Click on Compare on left rail & verify Compare tab
@@ -105,12 +105,13 @@ TC_Validate_Compare_option_in_ViewALLpage
 
 #10. Click on 'Clear all' in Compare tab
     Validate ClearAll Link      ${ClearAllLink}
+
 ###########################  Validate STO "Add to Cart" and CTO 'Customize & buy' from PLP  ###########################
 TC3_Validate_STO_AddtoCart_&_CTO_Customize&buy_from_PLP
 
 #1. Browse PLP page
-    Launch ETR Application  ${plp_sto_cto_url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${plp_uat_sto_cto_url}
+    #Click On Element    ${iAcceptBtn}
     capture page screenshot   ${CURDIR}${/}/AllScreenCaptures/PLP3Page.png
     Log to Console  "PLP Page is Successfully launched and Screenshot is Captured"
 
@@ -121,12 +122,12 @@ TC3_Validate_STO_AddtoCart_&_CTO_Customize&buy_from_PLP
 #4. Click on ""Customize & buy"" for an CTO
     Verify CTO_Config_Page    ${CTOCustnBuyButton}
 
-###########################  Validate Facets & Filters in View ALL page(PLP)  #############################
+############################  Validate Facets & Filters in View ALL page(PLP)  #############################
 TC4_Verify_FacetsandFilters_ViewAllPage
 
 #1. Browse 'View ALL'/PLP URL
-    Launch ETR Application    ${plp_filters_facets}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application    ${plp_uat_filters_facets}
+#    Click On Element    ${iAcceptBtn}
     capture page screenshot   ${CURDIR}${/}/AllScreenCaptures/PLP_FacetsFilters_Page.png
     Log to Console  "PLP Page is Successfully launched and Screenshot is Captured"
 
@@ -137,7 +138,7 @@ TC4_Verify_FacetsandFilters_ViewAllPage
     Verify BreadcrumbandFacettrial      ${InStockCheckbox}
 
 #4. Verify results after selecting facets
-    Verify Facet_Selection_Results     ${plp_filtered_url}
+    Verify Facet_Selection_Results     ${plp_uat_filtered_url}
 
 #5. Click on 'Clear all' in Filters
     Verify ClearAllFacets_inFilters     ${ClearALlFilters}

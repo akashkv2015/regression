@@ -49,12 +49,8 @@ Verify SKU And Keyword Search
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+    Launch ETR Application  ${Uat_url}
+
     #Step 2: Verify STO PDP is being displayed
      Search STO SKUID        ${txt_search_textbox}       ${sto_product_item}
     #Step 3: Navigate to home page
@@ -66,31 +62,55 @@ Verify SKU And Keyword Search
      #Step 5: Verify Search Result Pge with results
      Search Any Keyword     ${txt_search_textbox}      ${anyText}
 
+
+##################################### Validate Facets & Filters in Search Results Page #######################
 Validate Facets and filters Search
     [Tags]  WEB     MOBILE
-    #Step 1: Launch the application in appropriate device/desktop
+#Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
-     #Step 2:Enter any keyword and click o searh icon
+    Launch ETR Application  ${uat_url}
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
+
+#Step 2:Enter any keyword and click o searh icon
      Search Any Keyword     ${txt_search_textbox}      ${anyText}
-     #Step 3: Verify Category under filter tab and select dropdown
-     Verify Category and Select dropdown        ${category_txt}     ${category_dropdown}
-#####################################Validate Compare option in Search Results Page###################################
+
+#Step 3: Verify Category under filter tab and select dropdown
+     Verify Category and dropdown        ${category_txt}     ${category_dropdown}
+
+#Step 4: Select on any category displayed
+    Sleep  2s
+    Scroll To Element In View   ${LaptopsTablets}
+    Wait Until Element is Visible  ${LaptopsTablets}
+    Click Element  ${LaptopsTablets}
+    Verify Element Exists  ${LaptopsTabletsFacetCrumb}
+
+#Step 5: Select few facets and verify breadcrumb and facet trial
+    Verify BreadcrumbandFacettrial in Search  ${FacetCrumbWrapper}
+
+#Step 6: Verify results after selecting facets
+    Verify Facet_Selection_Results in Search  ${SaleFacetCrumb}
+
+#Step 7: Click on 'Clear all' in Filters
+    Verify ClearAllFacets_inFilters in Search  ${ClearALlFilters}
+
+
+
+
+###################################Validate Compare option in Search Results Page###################################
 Validate Compare option in Search Results Page
     [Tags]  WEB     MOBILE
     #Step 1: Launch the application in appropriate device/desktop
     #run keyword if     "${tech}" == "MOBILE"       Initiate Appium
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
-    run keyword if      '${tech}'=='WEB'    run keywords
-    ...     Select Application Frame     ${frame_SSM}
-    ...     AND     click on element    ${closeForm_SSM}
-    ...     AND     Unselect Frame
+    Launch ETR Application  ${Uat_url}
+#    Click On Element    ${iAcceptBtn}
+#    run keyword if      '${tech}'=='WEB'    run keywords
+#    ...     Select Application Frame     ${frame_SSM}
+#    ...     AND     click on element    ${closeForm_SSM}
+#    ...     AND     Unselect Frame
     #2. Click on Search bar > Enter any keyword in search field and click on search icon
     Verify Search Result Page  ${searched_value}
 
@@ -114,11 +134,12 @@ Validate Compare option in Search Results Page
     Remove Product From_Compare_Tab      ${ProductCardClose}
     #11. Click on 'Clear all' in Compare tab
     Verify ClearAll Link     ${ClearAllLink}
-##########################  Validate Search results page & sorting  ##############################################
+
+#########################  Validate Search results page & sorting  ##############################################
 TC_Validate_SearchResultPage_Sorting
 #1. Launch the Storefront URL
-    Launch ETR Application  ${url}
-    Click On Element    ${iAcceptBtn}
+    Launch ETR Application  ${uat_url}
+#    Click On Element    ${iAcceptBtn}
     Log to Console    "Storefront Home page is displayed"
 
 #2. Click on Search bar > Enter any keyword in search field and click on search icon
@@ -136,22 +157,24 @@ TC_Validate_SearchResultPage_Sorting
     Validate Product Details      ${ProductDetails}
 
 #7. Verify for the "Registered & TM" symbols in the Key selling points
-    Verify Registered & TM" symbols    ${RegisteredSymbol}
-    sleep       1s
+    #Verify Registered & TM" symbols    ${RegisteredSymbol}
+    sleep  3s
 
 #8. Click on 'Tech spec'
+    mouse over    ${TechSpec}
     Click Element  ${TechSpec}
     Log to Console  "Pop up window is displayed with Product specification details"
 
 #9. Click on X icon on the Tech Spec pop up
     Click Element  ${TechSpecClose}
     Log to Console  "Pop up is closed"
+    Sleep  4s
 
 #10. Verify 'See all offers' when user hover on it
     Verify See All Offers   ${SeeAllOffers}
 
 #11. Mouse hover on ‘Earn 3% in HP Rewards with purchase’ & verify the loyalty message in the pop up
-    Verify ToolTip Content   ${HpPurchaseRewards}
+#    Verify ToolTip Content   ${HpPurchaseRewards}
 
 #12. Click on "LOAD MORE"
     Verify LoadMore Button    ${LoadMoreButton}
@@ -160,9 +183,9 @@ TC_Validate_SearchResultPage_Sorting
     Verify AddToCart_STO_SearchPage        ${AddToCart_STO}
 
 #14. Click on "Customize & Buy" for CTO product
-    Verify CTO_SearchPage      ${CTOCustnBuyButton}
+#    Verify CTO_SearchPage      ${CTOCustnBuyButton}
 
 # Step 6 Continued....."PRIVATE STORE EXCLUSIVE PRICE" should be displayed above the price if available for Private store users
     Login to Private application    ${SignIn}
-    Go To   ${url}
+#    Go To   ${url}
 

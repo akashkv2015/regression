@@ -1,9 +1,24 @@
+# # Page elements
+# # Page elements for Home Page
+# txt_search_textbox = 'search_focus_desktop'
+# btn_begin_your_search = '//input[@id="search_focus_desktop"]/..//a[@title="Begin your search"]'
+# btn_add_to_cart='//button[@class="btn btn-primary purchase-btn"]'
+# cto_button_custom='//button[@class="btn btn-primary purchase-btn"]'
+# search1_result='//*[@id="PLPPageTitle"]'
+# search_result='//*[@id="PLPPageTitle"][contains(text(),"Results")]'
+# category_txt='//*[@id="subCatForm"]/div[1]'
+# category_dropdown='//*[@id="subCatForm"]/h3'
+# Category_dropdown_values='//*[@id="subCatForm"]/div[2]/label[3]/span'
+#
+# Category_dropdown_Items = "All HP Store Laptops & Tablets   Desktops    Displays & Accessories  Care Packs"
+
+
 # Page elements
 # Page elements for Home Page
 txt_search_textbox = 'search_focus_desktop'
 btn_begin_your_search = '//input[@id="search_focus_desktop"]/..//a[@title="Begin your search"]'
-btn_add_to_cart='//button[@class="btn btn-primary purchase-btn"]'
-cto_button_custom='//button[@class="btn btn-primary purchase-btn"]'
+btn_add_to_cart="(//span[@class='cta_price']/a)[1]"
+cto_button_custom="(//div[@class='CTO-btn-container PCOnly']/a)[1]"
 search1_result='//*[@id="PLPPageTitle"]'
 search_result='//*[@id="PLPPageTitle"][contains(text(),"Results")]'
 category_txt='//*[@id="subCatForm"]/div[1]'
@@ -38,12 +53,13 @@ txt_expiry_date = '//input[@id="txtExpDate"]'
 txt_cvv = '//input[@id="txtCVV"]'
 btn_review_order = '//div[@id="btnReviewOrder"]'
 
-# Page elements
 
-###Private_Exclusive_Price Text
-Pvt_Exclusive_Price = "(//span[@id='price_tier'])[1]"
-###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
-Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+# ###Private_Exclusive_Price Text
+# Pvt_Exclusive_Price = "//span[@id='price_tier']"
+# ###"PRIVATE STORE EXCLUSIVE PRICE"  text for Private store users
+# Private_Store_Expected = "PRIVATE STORE EXCLUSIVE PRICE"
+Pvt_Exclusive_Price = "//div[@class='topReview']//div[@class='promotion-text']"
+Private_Store_Expected = "Private Store Exclusive SKU"
 ###User SignIn Option
 SignIn = "//a[contains(text(),'Sign in/Register')]"
 SignIn_DropDown = "(//li//a[text()='Sign in'])[1]"
@@ -76,7 +92,8 @@ EnergyStar = "//*[text()='ENERGY STAR']"
 ###Key selling points (KSP)
 ksp = "//ul[@class='productFeatLst']"
 ###Price starting with '$'
-PriceStart = "//span[starts-with(text(),'$')]"
+# PriceStart = "//span[starts-with(text(),'$')]"
+PriceStart ="//span//sup[starts-with(text(),'$')]"
 ####Compare link (If available
 CompareLink = "//div[@class='inv_compare ']"
 ###Only X Left in Stock    (If inventory is less than threshold) / Shipping status label
@@ -92,7 +109,9 @@ SortByItems = "Default Lowest price Highest price Ratings Name Newest"
 ###Add to Cart STO Product
 AddToCart_STO = "(//a[contains(text(),'Add to cart')])[1]"
 #ProductName_STO = "(//a[@class='productHdr'])[1]"
-ProductName_STO = "(//a[contains(@aria-label,'Add to cart')]/../../preceding::a[@class='productHdr'])[1]"
+#ProductName_STO = "(//a[contains(@aria-label,'Add to cart')]/../../preceding::a[@class='productHdr'])[1]"
+ProductName_STO = "(//a[contains(@aria-label,'Add to cart')]/../../preceding::a[@class='productHdr'])[3]"
+
 ##Just Added to Cart Popup when clicked on AddtoCart button
 JustAddedtoCartPopup = "//div[@class='widget_content xo_minicart']"
 ### For mini cart icon
@@ -109,7 +128,7 @@ TechSpecClose = "(//span[@class='closeSpecsBtn'])[position()=1]"
 ###Earn 3% in HP Rewards Tooltip Lolayty Message
 LoyaltyTooltip = "(//div[@class='rewards-tooltip'])[position()=1]"
 ### See All Offers
-SeeAllOffers = "(//label[contains(text(),'See all offers')])[position()=1]"
+SeeAllOffers = "(//label[contains(text(),'See all offers')])[4]"
 ### See All Offers ToolTip
 SeeAllOffersToolTip = "//span[@class='tooltipContent']"
 
@@ -136,3 +155,26 @@ RegisteredSymbol = "//span[contains(@title, '®')]"
 ###TM Symbol in Product Details
 TMSymbol = "//span[contains(@title, '™')]"
 
+###facetCrumb Wrapper ID
+FacetCrumbWrapper = "//h1[@id='facetCrumbWrapperId']"
+###CLear All Facet Trail
+ClearAllFacetTrail = "//span[@class='clearFacetsBC']"
+###Clear All In Filters
+ClearALlFilters = "//div[@class='clearFacets']"
+###category - Laptops & Tablets
+LaptopsTablets = "//span[@class='subCatName' and contains(text(),'Laptops & Tablets')]"
+###FacetCrumb - Laptops & Tablets
+LaptopsTabletsFacetCrumb = "//div[@class='catCrumbs' and contains(text(),'Laptops & Tablets')]"
+###Sale Dropdown
+# SaleDropdown = "//div//h3[@id='facetName_x_onsale']"
+SaleDropdown ="//div//h3[@id='facetName_x_onsale']"
+###Sale Checkbox
+SaleCheckbox = "//span[@class='facetItemLbl' and contains(text(),'Sale')]"
+###In Cart Pricing Checkbox
+InCartPricingCheckbox = "//span[@class='facetItemLbl' and contains(text(),'In Cart Pricing')]"
+###Sale FacetCrumb
+SaleFacetCrumb = "//span[@class='facetCrumb' and contains(text(),'Sale')]"
+###InCartPricing FacetCrumb
+InCartPricingFacetCrumb = "//span[@class='facetCrumb' and contains(text(),'In Cart Pricing')]"
+###Results For Pavilion
+ResultsForPavilion = "//h2[@class='pageTitle' and contains(text(),'Results for') and contains(text(),'pavilion')]"
